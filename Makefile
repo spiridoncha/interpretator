@@ -1,21 +1,25 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++11
+VPATH = .:./Scanner:./Scanner/Lex:./Scanner/Ident:./Scanner/Table_Ident
 
 clean:
 	rm -f *.o eduLang
-	rm -f Scanner/*.o Scanner/Lex/*.o
+	rm -f Scanner/*.o Scanner/Lex/*.o Scanner/Ident/*.o Scanner/Table_Ident/*.o
 
-build: main.cpp Scanner/Scanner.o
-	$(CXX) $(CXXFLAGS) main.cpp -o eduLang
+build: main.cpp Scanner.o Lex.o Ident.o Table_Ident.o
+	$(CXX) $(CXXFLAGS) $^ -o eduLang
 
-Scanner/scanner.o: Scanner.cpp Scanner.h Scanner/Lex/Lex.o Scanner/Ident/Ident.o
-	$(CXX) $(CXXFLAGS) -c Scanner.cpp -o Scanner.o
+Scanner.o: Scanner.cpp Scanner.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-Scanner/Lex/Lex.o: Scanner/Lex.cpp Scanner/Lex.h
-	$(CXX) $(CXXFLAGS) -c Lex.cpp -o Lex.o
+Lex.o: Lex.cpp Lex.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-Scanner/Ident/Ident.o: Scanner/Ident/Ident.cpp Scanner/Ident/Ident.h
-	$(CXX) $(CXXFLAGS) -c Ident.cpp -o Ident.o
+Ident.o: Ident.cpp Ident.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+Table_Ident.o: Table_Ident.cpp Table_Ident.h Ident.o
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 run: build
 	./eduLang
