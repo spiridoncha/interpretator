@@ -18,8 +18,8 @@ class Lex
 	int value_lex;
 public:
 	Lex(type_of_lex t = LEX_NULL, int v = 0) : type_of_lex(t), value_lex(v) {}
-	type_of_lex get_type() { return type_lex; }
-	int get_value() { return value_lex; }
+	type_of_lex get_type() const { return type_lex; }
+	int get_value() const { return value_lex; }
 	friend std::ostream& operator<<(std::ostream &, Lex);
 };
 #endif
