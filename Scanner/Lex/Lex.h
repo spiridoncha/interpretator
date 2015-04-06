@@ -24,7 +24,7 @@ enum type_of_lex
 	LEX_WHILE,
 	LEX_FOR,
 	LEX_WRITE,
-	LEX_ID
+	LEX_ID,
 	LEX_FIN,
 	LEX_SEMICOLON,
 	LEX_COMMA,

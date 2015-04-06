@@ -16,7 +16,7 @@ class Wrap_File
 	FILE *file;
 	Ref *ref;
 public:
-	Wrap_File(char const *nameOfFile) : file(fopen(nameOfFile, "r")) { ref = new Ref(); ref->AddRef(); }
+	Wrap_File(const char *nameOfFile) : file(fopen(nameOfFile, "r")) { ref = new Ref(); ref->AddRef(); }
 	Wrap_File(const Wrap_File &other);
 	Wrap_File& operator=(const Wrap_File &other);
 	Wrap_File& operator=(Wrap_File &&other);

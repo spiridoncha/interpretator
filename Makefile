@@ -4,7 +4,6 @@ VPATH = .:./Scanner:./Scanner/Lex:./Scanner/Ident:./Scanner/Table_Ident:./Wrap_F
 
 clean:
 	rm -f *.o eduLang
-	rm -f Scanner/*.o Scanner/Lex/*.o Scanner/Ident/*.o Scanner/Table_Ident/*.o
 
 build: main.cpp Scanner.o Lex.o Ident.o Table_Ident.o Wrap_File.o Buffer.o
 	$(CXX) $(CXXFLAGS) $^ -o eduLang

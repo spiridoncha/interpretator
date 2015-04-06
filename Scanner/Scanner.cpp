@@ -1,5 +1,5 @@
 #include "Scanner.h"
-int Scanner::look(const char *buf, char **list)
+int Scanner::look(const char *buf, const char *list[])
 {
 	int i = 0;
 	while(list[i])
@@ -15,10 +15,11 @@ int Scanner::look(const char *buf, char **list)
 
 Lex Scanner::get_lex()
 {
-	int d, j;
-	Current_State = H;
-	do
-	{
-		
-	} while(true);
+	look("a", TD);
+	//int d, j;
+	//Current_State = H;
+	//do
+	//{
+	//	
+	//} while(true);
 }
