@@ -11,16 +11,18 @@ class Scanner
 	static const char *TD[];
 	static type_of_lex delims[];
 	state Current_State;
-	Wrap_File F;
+	Wrap_File File;
 	Buffer buf;
-	int current_char;
+	int c_ch; // current char
+	unsigned int current_str;
 	int look(const char *buf, const char *list[]);
 public:
 	Lex get_lex();
-	Scanner(const char *program) : F(program)
+	Scanner(const char *program) : File(program)
 	{
 		Current_State = H;
-		current_char = F.get_Char();
+		c_ch = File.get_char();
+		current_str = 1;
 	}
 };
 #endif

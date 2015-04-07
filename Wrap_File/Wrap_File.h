@@ -18,7 +18,7 @@ class Wrap_File
 public:
 	Wrap_File(const char *nameOfFile) : file(fopen(nameOfFile, "r")) 
 	{ 
-		if (file == NULL) { throw(File_Open_Error()); } //class of except ...............................
+		if (file == NULL) { throw(File_Open_Error()); }
 		ref = new Ref(); ref->AddRef();
 	}
 	Wrap_File(const Wrap_File &other);
@@ -33,7 +33,7 @@ public:
 		} 
 		if ((!ref) && (file)) { fclose(file); }
 	}
-	int get_Char() 
+	int get_char() 
 	{
 		return getc(file);
 	}

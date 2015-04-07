@@ -10,7 +10,12 @@ int main(int argc, char *argv[])
 			throw(Arguments_Error());
 		}
 		Scanner Scan(argv[1]);
-		cout << Scan.get_lex();
+		Lex a;
+		do
+		{
+			a = Scan.get_lex();
+			cout << a.get_value_int();
+		} while (a.get_type() != LEX_FINISH);
 	}
 	catch(const Arguments_Error &a)
 	{

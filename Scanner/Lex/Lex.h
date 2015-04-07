@@ -1,6 +1,7 @@
 #ifndef LEX_H
 #define LEX_H
 #include <iostream>
+//#include "../../String/String.h"
 enum type_of_lex
 {
 	LEX_NULL,
@@ -14,6 +15,7 @@ enum type_of_lex
 	LEX_IF,
 	LEX_FALSE,
 	LEX_INT,
+	LEX_NUM,
 	LEX_NOT,
 	LEX_OR,
 	LEX_PROGRAM,
@@ -50,10 +52,12 @@ class Lex
 {
 	type_of_lex type_lex;
 	int value_lex;
+	//String str;
 public:
-	Lex(type_of_lex t = LEX_NULL, int v = 0) : type_lex(t), value_lex(v) {}
+	Lex(type_of_lex t = LEX_NULL, int v = 0) : type_lex(t), value_lex(v)/*, String()*/ {}
 	type_of_lex get_type() const { return type_lex; }
-	int get_value() const { return value_lex; }
+	int get_value_int() const { return value_lex; }
+	//String get_value_str() const { return str; }
 	friend std::ostream& operator<<(std::ostream &, Lex);
 };
 #endif

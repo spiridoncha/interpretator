@@ -15,19 +15,52 @@ int Scanner::look(const char *buf, const char *list[])
 
 Lex Scanner::get_lex()
 {
-	//int d, i;
-	//Current_State = H;
-	//do
-	//{
-	//	
-	//} while(true);
 /*
-	const char *p = "while";
-	int i;
-	if ((i = look(p, TW)) != 0)
-		return Lex(words[i], i);
-	else
-		return Lex();
+	int d, i;
+	Current_State = H;
+	do
+	{
+		switch (Current_State)
+		{
+			case H:
+				if (c_ch==' '||c_ch=='\n'||c=='\r'||c=='\t')
+				{
+					if (c_ch == '\n')
+					{
+						++current_str;
+					}
+					c_ch = File.get_char();
+				}
+				else if (isalpha(c_ch)||c_ch=='{'||c_ch=='}')
+				{
+					buf.clear();
+					buf.add(c_ch);
+					c_ch = File.get_char();
+					Current_State = IDENT;
+				}
+				else if (isdigit(c_ch))
+				{
+					d = c_ch - '0';
+					c_ch = File.get_char()
+					Current_State = NUM;
+				}
+				else if (c_ch == '/')
+				{
+					/////////////////////////////////////////////////////
+				}
+		}
+	} while(true);
+*/
+
+/*
+	int a;
+	do
+	{
+		a = F.get_Char();
+		if (a != EOF)
+			return Lex();
+	} while(a != EOF);
+	return Lex(LEX_FINISH);
 */
 }
 
