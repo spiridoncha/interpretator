@@ -3,8 +3,13 @@
 using namespace std;
 int main()
 {
-	Scanner Scan("qqq.txt");
-	cout << Scan.get_lex();
+	try
+	{
+		Scanner Scan("qq.txt");
+		cout << Scan.get_lex();
+	}
+	//catch()
+	catch(const char* str) { cout << str; }
 	return 0;
 }
 

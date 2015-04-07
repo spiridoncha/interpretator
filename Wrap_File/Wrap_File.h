@@ -16,7 +16,11 @@ class Wrap_File
 	FILE *file;
 	Ref *ref;
 public:
-	Wrap_File(const char *nameOfFile) : file(fopen(nameOfFile, "r")) { ref = new Ref(); ref->AddRef(); }
+	Wrap_File(const char *nameOfFile) : file(fopen(nameOfFile, "r")) 
+	{ 
+		if (file == NULL) { throw("lal"); } //class of except ...............................
+		ref = new Ref(); ref->AddRef();
+	}
 	Wrap_File(const Wrap_File &other);
 	Wrap_File& operator=(const Wrap_File &other);
 	Wrap_File& operator=(Wrap_File &&other);
@@ -29,7 +33,10 @@ public:
 		} 
 		if ((!ref) && (file)) { fclose(file); }
 	}
-	int get_Char() { return getc(file); }
+	int get_Char() 
+	{
+		return getc(file);
+	}
 };
 
 #endif

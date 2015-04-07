@@ -5,6 +5,7 @@
 enum type_of_lex
 {
 	LEX_NULL,
+	LEX_FINISH,
 	LEX_AND,
 	LEX_BEGIN,
 	LEX_BOOL,
