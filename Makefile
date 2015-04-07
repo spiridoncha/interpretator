@@ -1,11 +1,12 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++11
 VPATH = .:./Scanner:./Scanner/Lex:./Scanner/Ident:./Scanner/Table_Ident:./Wrap_File:./Buffer:./Exception
+LIBS = Scanner.o Lex.o Ident.o Table_Ident.o Wrap_File.o Buffer.o Exception.o
 
 clean:
 	rm -f *.o eduLang
 
-build: main.cpp Scanner.o Lex.o Ident.o Table_Ident.o Wrap_File.o Buffer.o Exception.o
+build: main.cpp $(LIBS)
 	$(CXX) $(CXXFLAGS) $^ -o eduLang
 
 Scanner.o: Scanner.cpp Scanner.h
