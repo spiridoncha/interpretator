@@ -2,8 +2,6 @@
 #define WRAP_FILE_H
 #include <stdio.h>
 #include "../Exception/Exception.h"
-
-#pragma once
 class Ref
 {
 	unsigned int count;

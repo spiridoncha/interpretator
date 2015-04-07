@@ -30,7 +30,7 @@ Exception.o: Exception.cpp Exception.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 run: build
-	./eduLang
+	./eduLang test/qqq.txt
 
 valg: build
-	valgrind ./eduLang
+	valgrind ./eduLang test/qqq.txt

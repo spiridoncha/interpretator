@@ -1,7 +1,6 @@
 #ifndef BUFFER_H
 #define BUFFER_H
 #include <string.h>
-#pragma once
 class Buffer
 {
 	char *buf;

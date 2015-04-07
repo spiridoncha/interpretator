@@ -1,7 +1,6 @@
 #ifndef LEX_H
 #define LEX_H
 #include <iostream>
-#pragma once
 enum type_of_lex
 {
 	LEX_NULL,

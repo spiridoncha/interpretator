@@ -2,7 +2,6 @@
 #define IDENT_H
 #include "../Lex/Lex.h"
 #include <string.h>
-#pragma once
 class Ident
 {
 	char *name;

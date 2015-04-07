@@ -1,7 +1,6 @@
 #ifndef TABLE_IDENT_H
 #define TABLE_IDENT_H
 #include "../Ident/Ident.h"
-#pragma once
 class Table_Ident
 {
 	Ident *p;

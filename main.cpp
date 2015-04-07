@@ -1,11 +1,15 @@
 #include "Scanner/Scanner.h"
 #include <iostream>
 using namespace std;
-int main()
+int main(int argc, char *argv[])
 {
 	try
 	{
-		Scanner Scan("qqq.txt");
+		if (argc != 2)
+		{
+			throw(Arguments_Error());
+		}
+		Scanner Scan(argv[1]);
 		cout << Scan.get_lex();
 	}
 	catch(const exception &a) 

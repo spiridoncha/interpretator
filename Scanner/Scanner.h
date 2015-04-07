@@ -3,7 +3,6 @@
 #include "Lex/Lex.h"
 #include "../Wrap_File/Wrap_File.h"
 #include "../Buffer/Buffer.h"
-#pragma once
 class Scanner
 {
 	enum state { H, IDENT, NUM, COMMENT, ALE, DELIM, NEQ };
