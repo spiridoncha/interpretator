@@ -1,6 +1,8 @@
 #ifndef WRAP_FILE_H
 #define WRAP_FILE_H
 #include <stdio.h>
+#include "../Exception/Exception.h"
+
 #pragma once
 class Ref
 {
@@ -18,7 +20,7 @@ class Wrap_File
 public:
 	Wrap_File(const char *nameOfFile) : file(fopen(nameOfFile, "r")) 
 	{ 
-		if (file == NULL) { throw("lal"); } //class of except ...............................
+		if (file == NULL) { throw(File_Open_Error()); } //class of except ...............................
 		ref = new Ref(); ref->AddRef();
 	}
 	Wrap_File(const Wrap_File &other);
