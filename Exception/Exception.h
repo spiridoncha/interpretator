@@ -9,12 +9,17 @@ public:
 		return "file don't exist";
 	}
 };
+
 class Arguments_Error : public std::exception
 {
 public:
 	virtual const char* what() const throw()
 	{
-		return "expected 1 argument (given 0)";
+		return "expected 1 argument (given ";
+	}
+	const char* what2() const throw()
+	{
+		return ")";
 	}
 };
 #endif

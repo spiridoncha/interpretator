@@ -12,6 +12,10 @@ int main(int argc, char *argv[])
 		Scanner Scan(argv[1]);
 		cout << Scan.get_lex();
 	}
+	catch(const Arguments_Error &a)
+	{
+		cout << a.what() << argc-1 << a.what2() << endl;
+	}
 	catch(const exception &a) 
 	{
 		cout << a.what() << endl;
