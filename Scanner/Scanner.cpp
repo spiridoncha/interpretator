@@ -21,10 +21,12 @@ Lex Scanner::get_lex()
 	//{
 	//	
 	//} while(true);
+/*
 	const char *p = "while";
 	int i;
 	if ((i = look(p, TW)) != 0)
 		return Lex(words[i], i);
 	else
 		return Lex();
+*/
 }

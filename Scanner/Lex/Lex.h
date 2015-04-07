@@ -22,6 +22,7 @@ enum type_of_lex
 	LEX_THEN,
 	LEX_TRUE,
 	LEX_VAR,
+	LEX_STRING,
 	LEX_WHILE,
 	LEX_FOR,
 	LEX_WRITE,
@@ -43,6 +44,7 @@ enum type_of_lex
 	LEX_LEQ,
 	LEX_NEQ,
 	LEX_GEQ,
+	LEX_APOST //?
 };
 
 class Lex

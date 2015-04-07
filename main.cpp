@@ -25,6 +25,7 @@ const char* Scanner::TW[] =
 	"if",
 	"false",
 	"int",
+	"string",
 	"not",
 	"or",
 	"program",
@@ -55,6 +56,7 @@ const char* Scanner::TD[] =
 	"<=",
 	"!=",
 	">=",
+	"""",
 	nullptr
 };
 type_of_lex Scanner::words[] =
@@ -69,6 +71,7 @@ type_of_lex Scanner::words[] =
 	LEX_IF,
 	LEX_FALSE,
 	LEX_INT,
+	LEX_STRING,
 	LEX_NOT,
 	LEX_OR,
 	LEX_PROGRAM,
@@ -100,4 +103,6 @@ type_of_lex Scanner::delims[] =
 	LEX_LEQ,
 	LEX_NEQ,
 	LEX_GEQ,
+	LEX_APOST, //?
+	LEX_NULL
 };
