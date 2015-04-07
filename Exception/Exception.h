@@ -22,4 +22,13 @@ public:
 		return ")";
 	}
 };
+
+class Lex_Error : public std::exception
+{
+public:
+	virtual const char* what() const throw()
+	{
+		return "Lex_Error";
+	}
+};
 #endif
