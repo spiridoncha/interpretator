@@ -1,8 +1,13 @@
 #include "Scanner/Scanner.h"
+#include <iostream>
+using namespace std;
 int main()
 {
+	Scanner Scan("qqq.txt");
+	cout << Scan.get_lex();
 	return 0;
 }
+
 const char* Scanner::TW[] =
 {
 	"",
@@ -91,4 +96,3 @@ type_of_lex Scanner::delims[] =
 	LEX_NEQ,
 	LEX_GEQ,
 };
-
