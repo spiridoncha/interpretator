@@ -1,55 +1,65 @@
 #include "String.h"
-#include <iostream>
 String::String(const String& other)
 {
 	size = other.size;
 	str = new char[size+1];
-	for(int i=0; i<=size; ++i)
-	{
-		str[i] = other.str[i];
-	}
+	strcpy(str, other.str);
 }
 
 String::String(const char *other)
 {
 	size = strlen(other);
 	str = new char[size+1];
-	for(int i=0; i<=size; ++i)
+	strcpy(str, other);
+}
+
+String String::int_to_str(const int n)
+{
+	int i = n;
+	int mod;
+	String tmp("");
+	while (i)
 	{
-		str[i]=other[i];
+		mod = i%10;
+		mod += '0';
+		char *p = new char[2];
+		p[0] = mod;
+		p[1] = '\0';
+		tmp += String(p);
+		delete[] p;
+		i/=10;
 	}
+	return tmp;
 }
 
 String& String::operator=(const String& other)
 {
-	size = other.size;
-	delete[] str;
-	//std::cout << size;
-	str = new char[size+1];
-	for(int i=0; i<=size; ++i)
+	if (this == &other)
 	{
-		str[i] = other.str[i];
+		return *this;
 	}
+	delete[] str;
+	size = other.size;
+	str = new char[size+1];
+	strcpy(str, other.str);
 	return *this;
 }
 
 String& String::operator+=(const String &other)
 {
-	int tmp_size = size;
 	size += other.size;
 	char *p_new = new char[size+1];
-	for(int i=0; i<tmp_size; ++i)
-	{
-		p_new[i] = str[i];
-	}
-	int j = 0;
-	for(int i=tmp_size; i<=size; ++i)
-	{
-		p_new[i] = other.str[j++];
-	}
+	strcpy(p_new, str);
+	strcat(p_new, other.str);
 	delete[] str;
-	str = p_new;
+	str  = p_new;
 	return *this;
+}
+
+std::ostream& operator<<(std::ostream &out, const String &st)
+{
+	out << st.str;
+	return out;
 }
 
 String String::operator+(const String &other)

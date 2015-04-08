@@ -51,17 +51,15 @@ Lex Scanner::get_lex()
 		}
 	} while(true);
 */
-
-/*
 	int a;
 	do
 	{
-		a = F.get_Char();
+		a = File.get_char();
 		if (a != EOF)
 			return Lex();
 	} while(a != EOF);
 	return Lex(LEX_FINISH);
-*/
+
 }
 
 const char* Scanner::TW[] =
