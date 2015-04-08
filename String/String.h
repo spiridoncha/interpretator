@@ -6,11 +6,12 @@ class String
 	char *str;
 	int size;
 public:
-	String() : str(nullptr), size(0) {}
-	explicit String(const char*);
+	String() : str(nullptr) {}
+	explicit String(const char* other);
 	~String() { delete[] str; }
 	String(const String&);
 	String& operator=(const String&);
+	String& operator+=(const String&);
 	String operator+(const String&);
 };
 #endif

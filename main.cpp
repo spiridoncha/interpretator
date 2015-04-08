@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 	{
 		if (argc != 2)
 		{
-			throw(Arguments_Error());
+			//throw(Arguments_Error());
 		}
 		Scanner Scan(argv[1]);
 		Lex a;
