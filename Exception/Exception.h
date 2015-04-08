@@ -1,34 +1,27 @@
 #ifndef EXCEPTION_H
 #define EXCEPTION_H
-#include <exception>
-class File_Open_Error : public std::exception
+#include "../String/String.h"
+class Except
+{
+	virtual String what() const throw() = 0;
+};
+class File_Open_Error : public Except
 {
 public:
-	virtual const char* what() const throw()
+	virtual String what() const throw()
 	{
-		return "file don't exist";
+		String tmp("file don't exist");
+		return tmp;
 	}
 };
 
-class Arguments_Error : public std::exception
+class Arguments_Error : public String
 {
 public:
-	virtual const char* what() const throw()
-	{
-		return "expected 1 argument (given ";
-	}
-	const char* what2() const throw()
-	{
-		return ")";
-	}
 };
 
-class Lex_Error : public std::exception
+class Lex_Error : public Except
 {
 public:
-	virtual const char* what() const throw()
-	{
-		return "Lex_Error";
-	}
 };
 #endif

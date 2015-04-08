@@ -19,11 +19,9 @@ int main(int argc, char *argv[])
 	}
 	catch(const Arguments_Error &a)
 	{
-		cout << a.what() << argc-1 << a.what2() << endl;
 	}
 	catch(const exception &a) 
 	{
-		cout << a.what() << endl;
 	}
 	return 0;
 }
