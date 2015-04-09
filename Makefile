@@ -3,9 +3,11 @@ CXXFLAGS = -Wall -std=c++11
 VPATH = .:./Scanner:./Scanner/Lex:./Scanner/Ident:./Scanner/Table_Ident:./Wrap_File:./Buffer:./Exception:./String
 LIBS = Scanner.o Lex.o Ident.o Table_Ident.o Wrap_File.o Buffer.o Exception.o String.o
 
+.PHONY : clean
 clean:
 	rm -f *.o eduLang
 
+.PHONY : build
 build: main.cpp $(LIBS)
 	$(CXX) $(CXXFLAGS) $^ -o eduLang
 
@@ -33,8 +35,10 @@ Exception.o: Exception.cpp Exception.h
 String.o: String.cpp String.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+.PHONY : run
 run: build
 	./eduLang test/qqq.txt
 
+.PHONY : valg
 valg: build
 	valgrind ./eduLang test/qqq.txt
