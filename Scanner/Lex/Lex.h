@@ -54,7 +54,7 @@ class Lex
 	int value_lex;
 	String str;
 public:
-	Lex(type_of_lex t = LEX_NULL, int v = 0, const char* st="") : type_lex(t), value_lex(v), str(st) {}
+	Lex(type_of_lex t = LEX_NULL, int v = 0, const char* st=nullptr) : type_lex(t), value_lex(v), str(st) {}
 	type_of_lex get_type() const { return type_lex; }
 	int get_value_int() const { return value_lex; }
 	String get_value_str() const { return str; }

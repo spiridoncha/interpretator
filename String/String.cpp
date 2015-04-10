@@ -1,16 +1,32 @@
 #include "String.h"
 String::String(const String& other)
 {
-	size = other.size;
-	str = new char[size+1];
-	strcpy(str, other.str);
+	if (other.str != nullptr)
+	{
+		size = other.size;
+		str = new char[size+1];
+		strcpy(str, other.str);
+	}
+	else
+	{
+		str = other.str;
+		size = other.size;
+	}
 }
 
 String::String(const char *other)
 {
-	size = strlen(other);
-	str = new char[size+1];
-	strcpy(str, other);
+	if (other != nullptr)
+	{
+		size = strlen(other);
+		str = new char[size+1];
+		strcpy(str, other);
+	}
+	else
+	{
+		str = nullptr;
+		size = 0;
+	}
 }
 
 String String::int_to_str(const int n)
@@ -34,15 +50,29 @@ String String::int_to_str(const int n)
 
 String& String::operator=(const String& other)
 {
-	if (this == &other)
+	if (other.str != nullptr)
 	{
+		if (this == &other)
+		{
+			return *this;
+		}
+		delete[] str;
+		size = other.size;
+		str = new char[size+1];
+		strcpy(str, other.str);
 		return *this;
 	}
-	delete[] str;
-	size = other.size;
-	str = new char[size+1];
-	strcpy(str, other.str);
-	return *this;
+	else
+	{
+		if (this == &other)
+		{
+			return *this;
+		}
+		delete[] str;
+		size = other.size;
+		str = other.str;
+		return *this;
+	}
 }
 
 String& String::operator+=(const String &other)

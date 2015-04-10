@@ -51,7 +51,6 @@ Lex Scanner::get_lex()
 		}
 	} while(true);
 */
-/*
 	int a;
 	do
 	{
@@ -60,7 +59,6 @@ Lex Scanner::get_lex()
 			return Lex();
 	} while(a != EOF);
 	return Lex(LEX_FINISH);
-*/
 }
 
 const char* Scanner::TW[] =
