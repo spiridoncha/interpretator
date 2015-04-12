@@ -11,7 +11,7 @@ public:
 	explicit String(const char* other);
 	~String() { delete[] str; }
 	String(const String&);
-	String int_to_str(const int n);
+	static String int_to_str(const int n);
 	String& operator=(const String&);
 	String& operator+=(const String&);
 	String operator+(const String&);

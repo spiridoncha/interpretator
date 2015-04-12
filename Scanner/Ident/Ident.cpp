@@ -1,10 +1,14 @@
 #include "Ident.h"
-Ident::Ident(const Ident &id)
+Ident& Ident::operator=(const Ident &Id)
 {
-	char *name = new char[strlen(id.name) + 1];
-	strcpy(name, id.name);
-	declare = id.declare;
-	type = id.type;
-	assign = id.assign;
-	value = id.value;
+	if (Id.name != nullptr)
+	{
+		name = new char[strlen(Id.name)+1];
+		strcpy(name, Id.name);
+	}
+	assign = Id.assign;
+	declare = Id.declare;
+	type = Id.type;
+	value = Id.value;
+	return *this;
 }

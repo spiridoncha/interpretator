@@ -9,10 +9,11 @@ class Ident
 	type_of_lex type;
 	bool assign;
 	int value;
+	Ident(const Ident&) {}
 public:
-	Ident() : declare(false), assign(false) {}
+	Ident() : name(nullptr), declare(false), assign(false) {}
 	~Ident() { delete[] name; }
-	Ident(const Ident&);
+	Ident& operator=(const Ident&);
 	const char* get_name() const { return name; }
 	void put_name(const char *n)
 	{

@@ -23,7 +23,7 @@ public:
 	virtual String what() const throw()
 	{
 		String tmp("Arguments_Error: expected 1 arg (given ");
-		tmp += String("").int_to_str(argc-1);
+		tmp += String::int_to_str(argc-1);
 		tmp += String(")");
 		return tmp;
 	}
@@ -31,6 +31,29 @@ public:
 
 class Lex_Error : public Except
 {
+	int n_str;
 public:
+	Lex_Error(int n = 0) : n_str(n) {}
+	int get_n_str() const { return n_str; }
+	virtual String what() const throw()
+	{
+		String tmp("Lex_Error ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		return tmp;
+	}
+};
+
+class Lex_Error_Comment : public Lex_Error
+{
+public:
+	Lex_Error_Comment(int n_str = 0) : Lex_Error(n_str) {}
+	virtual String what() const throw()
+	{
+		String tmp("Lex_Error: Error Comment ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		return tmp;
+	}
 };
 #endif

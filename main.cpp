@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 		do
 		{
 			a = Scan.get_lex();
-			cout << a;
+			cout << a << endl;
 		} while (a.get_type() != LEX_FINISH);
 	}
 	catch(const File_Open_Error &a)

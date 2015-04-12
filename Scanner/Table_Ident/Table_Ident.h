@@ -4,17 +4,17 @@
 class Table_Ident
 {
 	Ident *p;
-	unsigned int size;
-	unsigned int real_size;
+	int size;
+	int real_size;
 	void re_size();
+	Table_Ident(const Table_Ident&) {}
 public:
-	Table_Ident(unsigned int start_size=4) : real_size(0)
+	Table_Ident(int start_size=4) : real_size(0)
 	{
 		p = new Ident[size=start_size];
 	}
 	~Table_Ident() { delete[] p; }
-	Table_Ident(const Table_Ident&);
-	Ident& operator[](unsigned int k) const { return p[k]; }
-	unsigned int put(const char*);
+	Ident& operator[](int k) { return p[k]; }
+	int put(const char*);
 };
 #endif

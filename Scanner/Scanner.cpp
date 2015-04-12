@@ -1,4 +1,5 @@
 #include "Scanner.h"
+#include <iostream>
 int Scanner::look(const char *buf, const char *list[])
 {
 	int i = 0;
@@ -15,23 +16,22 @@ int Scanner::look(const char *buf, const char *list[])
 
 Lex Scanner::get_lex()
 {
-/*
-	int d, i;
+	int d, j;
 	Current_State = H;
 	do
 	{
 		switch (Current_State)
 		{
 			case H:
-				if (c_ch==' '||c_ch=='\n'||c=='\r'||c=='\t')
+				if (c_ch==' '||c_ch=='\n'||c_ch=='\r'||c_ch=='\t')
 				{
 					if (c_ch == '\n')
 					{
-						++current_str;
+						++current_number_str;
 					}
 					c_ch = File.get_char();
 				}
-				else if (isalpha(c_ch)||c_ch=='{'||c_ch=='}')
+				else if ((isalpha(c_ch))||(c_ch == '{')||(c_ch == '}'))
 				{
 					buf.clear();
 					buf.add(c_ch);
@@ -41,16 +41,164 @@ Lex Scanner::get_lex()
 				else if (isdigit(c_ch))
 				{
 					d = c_ch - '0';
-					c_ch = File.get_char()
+					c_ch = File.get_char();
 					Current_State = NUM;
 				}
 				else if (c_ch == '/')
 				{
-					/////////////////////////////////////////////////////
+					c_ch = File.get_char();
+					Current_State = COMMENT0;
 				}
+				else if ((c_ch == '<')||(c_ch == '>')||(c_ch == '='))
+				{
+					buf.clear();
+					buf.add(c_ch);
+					c_ch = File.get_char();
+					Current_State = ALE;
+				}
+				else if (c_ch == '!')
+				{
+					buf.clear();
+					buf.add(c_ch);
+					c_ch = File.get_char();
+					Current_State = NEQ;
+				}
+				else if (c_ch == '"')
+				{
+					buf.clear();
+					c_ch = File.get_char();
+					Current_State = STR;
+				}
+				else if (c_ch == EOF)
+				{
+					return Lex(LEX_FINISH);
+				}
+				else
+				{
+					buf.clear();
+					buf.add(c_ch);
+					Current_State = DELIM;
+				}
+				break;
+			case IDENT:
+				if (isalpha(c_ch)||isdigit(c_ch))
+				{
+					buf.add(c_ch);
+					c_ch = File.get_char();
+				}
+				else
+				{
+					if ((j = look(buf(), TW)) != 0)
+					{
+						return Lex(words[j], j);
+					}
+					else
+					{
+						j = TID.put(buf());
+						return Lex(LEX_ID, j);
+					}
+				}
+				break;
+			case NUM:
+				if (isdigit(c_ch))
+				{
+					d = 10*d + (c_ch - '0');
+					c_ch = File.get_char();
+				}
+				else
+				{
+					return Lex(LEX_NUM, d);
+				}
+				break;
+			case COMMENT0:
+				if (c_ch == '*')
+				{
+					c_ch = File.get_char();
+					Current_State = COMMENT;
+				}
+				else
+				{
+					j = look("/", TD);
+					return Lex(delims[j], j);
+				}
+				break;
+			case COMMENT:
+				if (c_ch == '*')
+				{
+					c_ch = File.get_char();
+					Current_State = COMMENT1;
+				}
+				else if (c_ch == EOF)
+				{
+					throw Lex_Error_Comment(current_number_str);
+				}
+				else
+				{
+					c_ch = File.get_char();
+				}
+				break;
+			case COMMENT1:
+				if (c_ch == '/')
+				{
+					c_ch = File.get_char();
+					Current_State = H;
+				}
+				else
+				{
+					c_ch = File.get_char();
+					Current_State = COMMENT;
+				}
+				break;
+			case ALE:
+				if (c_ch == '=')
+				{
+					buf.add(c_ch);
+					c_ch = File.get_char();
+					j = look(buf(), TD);
+					return Lex(delims[j], j);
+				}
+				else
+				{
+					j = look(buf(), TD);
+					return Lex(delims[j], j);
+				}
+				break;
+			case NEQ:
+				if (c_ch == '=')
+				{
+					buf.add(c_ch);
+					c_ch = File.get_char();
+					j = look(buf(), TD);
+					return Lex(LEX_NEQ, j);
+				}
+				else
+				{
+					throw Lex_Error(current_number_str);
+				}
+				break;
+			case STR:
+				while (c_ch != '"')
+				{
+					buf.add(c_ch);
+					c_ch = File.get_char();
+				}
+				c_ch = File.get_char();
+				return Lex(LEX_STRING, 0, buf());
+				break;
+			case DELIM:
+				if ((j = look(buf(), TD)) != 0)
+				{
+					c_ch = File.get_char();
+					return Lex(delims[j], j);
+				}
+				else
+				{
+					throw Lex_Error(current_number_str);
+				}
+				break;
 		}
 	} while(true);
-*/
+/*
 	int a;
 	do
 	{
@@ -59,6 +207,7 @@ Lex Scanner::get_lex()
 			return Lex();
 	} while(a != EOF);
 	return Lex(LEX_FINISH);
+*/
 }
 
 const char* Scanner::TW[] =
@@ -89,7 +238,6 @@ const char* Scanner::TD[] =
 {
 	"",
 	";",
-	"@",
 	",",
 	"=",
 	"(",
@@ -104,7 +252,6 @@ const char* Scanner::TD[] =
 	"<=",
 	"!=",
 	">=",
-	"""",
 	nullptr
 };
 type_of_lex Scanner::words[] =
@@ -134,10 +281,8 @@ type_of_lex Scanner::words[] =
 type_of_lex Scanner::delims[] =
 {
 	LEX_NULL,
-	LEX_FIN,
 	LEX_SEMICOLON,
 	LEX_COMMA,
-	LEX_COLON,
 	LEX_ASSIGN,
 	LEX_LPAREN,
 	LEX_RPAREN,
@@ -151,6 +296,5 @@ type_of_lex Scanner::delims[] =
 	LEX_LEQ,
 	LEX_NEQ,
 	LEX_GEQ,
-	LEX_APOST, //?
 	LEX_NULL
 };
