@@ -34,6 +34,11 @@ String String::int_to_str(const int n)
 	int i = n;
 	int mod;
 	String tmp("");
+	if (n == 0)
+	{
+		tmp += String("0");
+		return tmp;
+	}
 	while (i)
 	{
 		mod = i%10;
