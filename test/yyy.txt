@@ -1,0 +1,4 @@
+program
+{
+	string a = "asdfa\"";
+}
