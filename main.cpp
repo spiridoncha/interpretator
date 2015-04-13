@@ -17,11 +17,7 @@ int main(int argc, char *argv[])
 			cout << a << endl;
 		} while (a.get_type() != LEX_FINISH);
 	}
-	catch(const File_Open_Error &a)
-	{
-		cout << a.what() << endl;
-	}
-	catch(const Arguments_Error &a)
+	catch (const Except &a)
 	{
 		cout << a.what() << endl;
 	}

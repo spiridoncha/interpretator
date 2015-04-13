@@ -1,6 +1,6 @@
 program
 {
-	int a = 5;
+	bool a = 5;
 	if (a >5)
 	{
 		write("YES");

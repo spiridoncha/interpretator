@@ -3,6 +3,7 @@
 #include "../String/String.h"
 class Except
 {
+public:
 	virtual String what() const throw() = 0;
 };
 class File_Open_Error : public Except
@@ -15,7 +16,7 @@ public:
 	}
 };
 
-class Arguments_Error : public String
+class Arguments_Error : public Except
 {
 	int argc;
 public:
