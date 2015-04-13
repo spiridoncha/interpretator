@@ -93,7 +93,10 @@ String& String::operator+=(const String &other)
 
 std::ostream& operator<<(std::ostream &out, const String &st)
 {
-	out << st.str;
+	if (st.str != nullptr)
+	{
+		out << st.str;
+	}
 	return out;
 }
 
