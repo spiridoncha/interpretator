@@ -48,10 +48,23 @@ public:
 class Lex_Error_Comment : public Lex_Error
 {
 public:
-	Lex_Error_Comment(int n_str = 0) : Lex_Error(n_str) {}
+	Lex_Error_Comment(int n_str) : Lex_Error(n_str) {}
 	virtual String what() const throw()
 	{
 		String tmp("Lex_Error: Error Comment ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		return tmp;
+	}
+};
+
+class Lex_Error_String : public Lex_Error
+{
+public:
+	Lex_Error_String(int n_str) : Lex_Error(n_str) {}
+	virtual String what() const throw()
+	{
+		String tmp("Lex_Error: Error String ");
 		tmp += String("in str: ");
 		tmp += String::int_to_str(get_n_str());
 		return tmp;

@@ -179,6 +179,10 @@ Lex Scanner::get_lex()
 			case STR:
 				while (c_ch != '"')
 				{
+					if (c_ch == EOF)
+					{
+						throw Lex_Error_String(current_number_str);
+					}
 					buf.add(c_ch);
 					c_ch = File.get_char();
 				}
