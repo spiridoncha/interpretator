@@ -20,7 +20,7 @@ class Arguments_Error : public Except
 {
 	int argc;
 public:
-	Arguments_Error(int arg = 0) : argc(arg) {}
+	Arguments_Error(int arg) : argc(arg) {}
 	virtual String what() const throw()
 	{
 		String tmp("Arguments_Error: expected 1 arg (given ");
@@ -34,7 +34,7 @@ class Lex_Error : public Except
 {
 	int n_str;
 public:
-	Lex_Error(int n = 0) : n_str(n) {}
+	Lex_Error(int n) : n_str(n) {}
 	int get_n_str() const { return n_str; }
 	virtual String what() const throw()
 	{
