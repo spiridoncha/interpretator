@@ -1,0 +1,8 @@
+program
+{
+	/*
+		comment
+	*/
+	string a = "111";
+	write(a);
+}
