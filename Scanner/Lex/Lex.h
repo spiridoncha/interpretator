@@ -33,7 +33,7 @@ enum type_of_lex
 	LEX_COMMA,
 	LEX_ASSIGN,
 	LEX_LPAREN,
-	LEX_RPAREN,//30
+	LEX_RPAREN,
 	LEX_EQ,
 	LEX_LSS,
 	LEX_GTR,

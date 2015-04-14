@@ -1,4 +1,4 @@
 program
 {
-	string a = "asdfa\"";
+	stringb a = 10;
 }

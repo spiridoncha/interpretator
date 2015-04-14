@@ -2,7 +2,7 @@ program
 {
 	bool a = true;
 	bool b = false;
-	if (a and b)
+	if (not a and b)
 	{
 		write(a, b);
 	}
