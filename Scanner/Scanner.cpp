@@ -191,7 +191,7 @@ Lex Scanner::get_lex()
 					c_ch = File.get_char();
 				}
 				c_ch = File.get_char();
-				return Lex(LEX_STRING, 0, buf());
+				return Lex(LEX_CONST_STRING, 0, buf());
 				break;
 			case DELIM:
 				if ((j = look(buf(), TD)) != 0)
