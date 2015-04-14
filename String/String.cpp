@@ -99,9 +99,3 @@ std::ostream& operator<<(std::ostream &out, const String &st)
 	}
 	return out;
 }
-
-String String::operator+(const String &other)
-{
-	//////////////////////
-	return String();
-}

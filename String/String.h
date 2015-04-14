@@ -14,7 +14,6 @@ public:
 	static String int_to_str(const int n);
 	String& operator=(const String&);
 	String& operator+=(const String&);
-	String operator+(const String&);
 	friend std::ostream& operator<<(std::ostream&, const String&);
 };
 #endif
