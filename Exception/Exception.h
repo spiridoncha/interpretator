@@ -5,6 +5,7 @@ class Except
 {
 public:
 	virtual String what() const throw() = 0;
+	virtual ~Except() {}
 };
 class File_Open_Error : public Except
 {
