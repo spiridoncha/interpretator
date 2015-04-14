@@ -1,0 +1,9 @@
+program
+{
+	bool a = true;
+	bool b = false;
+	if (a and b)
+	{
+		write(a, b);
+	}
+}
