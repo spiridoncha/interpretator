@@ -91,6 +91,14 @@ String& String::operator+=(const String &other)
 	return *this;
 }
 
+String String::operator+(const String &other)
+{
+	String tmp("");
+	tmp += *this;
+	tmp += other;
+	return tmp;
+}
+
 std::ostream& operator<<(std::ostream &out, const String &st)
 {
 	if (st.str != nullptr)
