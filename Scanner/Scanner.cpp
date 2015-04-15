@@ -201,9 +201,11 @@ Lex Scanner::get_lex()
 				}
 				else
 				{
-					throw Lex_Error(current_number_str);
+					throw Lex_Error_Incorrect(current_number_str);
 				}
 				break;
+			default:
+				throw("default in Scanner::get_lex()");
 		}
 	} while(true);
 /*

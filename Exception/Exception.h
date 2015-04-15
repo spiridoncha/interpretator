@@ -71,4 +71,17 @@ public:
 		return tmp;
 	}
 };
+
+class Lex_Error_Incorrect : public Lex_Error
+{
+public:
+	Lex_Error_Incorrect(int n_str) : Lex_Error(n_str) {}
+	virtual String what() const throw()
+	{
+		String tmp("Lex_Error: Incorrect symbol ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		return tmp;
+	}
+};
 #endif
