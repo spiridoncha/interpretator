@@ -9,7 +9,7 @@ public:
 	~Stack() { delete[] p; }
 	void push(const T&);
 	T pop();
-	bool is_Empty() { return real_size == 0;}
+	bool is_Empty() const { return real_size == 0;}
 private:
 	Stack(const Stack&) {}
 	void operator=(const Stack&) {}

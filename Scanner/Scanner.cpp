@@ -1,6 +1,6 @@
 #include "Scanner.h"
 #include <iostream>
-int Scanner::look(const char *buf, const char *list[])
+int Scanner::look(const char *buf, const char *list[]) const
 {
 	int i = 0;
 	while(list[i])
