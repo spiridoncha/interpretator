@@ -1,5 +1,6 @@
 #include "Scanner/Scanner.h"
 #include <iostream>
+#include "Stack/Stack.h"
 using namespace std;
 int main(int argc, char *argv[])
 {
@@ -20,6 +21,10 @@ int main(int argc, char *argv[])
 	catch (const Except &a)
 	{
 		cout << a.what() << endl;
+	}
+	catch (const char* str)
+	{
+		cout << "!!!" << str << endl;
 	}
 	return 0;
 }
