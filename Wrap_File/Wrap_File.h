@@ -18,7 +18,7 @@ class Wrap_File
 public:
 	Wrap_File(const char *nameOfFile) : file(fopen(nameOfFile, "r")) 
 	{ 
-		if (file == NULL) { throw(File_Open_Error()); }
+		if (file == NULL) { throw(File_Open_Error(String(nameOfFile))); }
 		ref = new Ref(); ref->AddRef();
 	}
 	Wrap_File(const Wrap_File &other);

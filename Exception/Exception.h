@@ -9,10 +9,14 @@ public:
 };
 class File_Open_Error : public Except
 {
+	String st;
 public:
+	File_Open_Error(const String &s) : st(s) {}
 	virtual String what() const throw()
 	{
-		String tmp("File_Open_Error: file don't exist");
+		String tmp("File_Open_Error: '");
+		tmp += st;
+		tmp += String("' - file don't exist");
 		return tmp;
 	}
 };
