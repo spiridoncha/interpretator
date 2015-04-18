@@ -17,7 +17,7 @@ class Scanner
 	Buffer buf;
 	int c_ch; // current char
 	unsigned int current_number_str;
-	int look(const char *buf, const char *list[]);
+	int look(const char *buf, const char *list[]) const;
 public:
 	Lex get_lex();
 	Scanner(const char *program) : File(program)
