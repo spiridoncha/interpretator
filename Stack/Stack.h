@@ -1,5 +1,6 @@
 #ifndef STACK_H
 #define STACK_H
+#include "../Scanner/Lex/Lex.h"
 template <typename T>
 class Stack
 {
