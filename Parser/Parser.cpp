@@ -5,7 +5,7 @@ void Parser::analize()
 {
 	get_lex();
 	Program();
-	//prog.print()
+	//TODO
 	std::cout << "ya" << std::endl;
 }
 
@@ -65,23 +65,118 @@ void Parser::Descriptions()
 }
 void Parser::Description()
 {
-	//TODO
 	if (current_type_of_lex == LEX_INT)
 	{
 		get_lex();
+		Description_int();
+		while (current_type_of_lex == LEX_COMMA)
+		{
+			get_lex();
+			Description_int();
+		}
 	}
 	else if (current_type_of_lex == LEX_STRING)
 	{
 		get_lex();
+		Description_string();
+		while (current_type_of_lex == LEX_COMMA)
+		{
+			get_lex();
+			Description_string();
+		}
 	}
 	else if (current_type_of_lex == LEX_BOOL)
 	{
 		get_lex();
+		Description_bool();
+		while (current_type_of_lex == LEX_COMMA)
+		{
+			get_lex();
+			Description_bool();
+		}
+	}
+	else if (current_type_of_lex == LEX_SEMICOLON)
+	{
+		throw current_lex;
+	}
+}
+
+void Parser::Description_int()
+{
+	if (current_type_of_lex == LEX_ID)
+	{
+		//TODO
+		get_lex();
+		if (current_type_of_lex == LEX_ASSIGN)
+		{
+			get_lex();
+			if (current_type_of_lex == LEX_NUM)
+			{
+				//TODO
+				get_lex();
+			}
+			else
+			{
+				throw current_lex;
+			}
+		}
 	}
 	else
 	{
 		throw current_lex;
 	}
+}
+
+void Parser::Description_string()
+{
+	if (current_type_of_lex == LEX_ID)
+	{
+		//TODO
+		get_lex();
+		if (current_type_of_lex == LEX_ASSIGN)
+		{
+			if (current_type_of_lex == LEX_CONST_STRING)
+			{
+				//TODO
+				get_lex();
+			}
+			else
+			{
+				throw current_lex;
+			}
+		}
+	}
+	else
+	{
+		throw current_lex;
+	}
+
+}
+
+void Parser::Description_bool()
+{
+	if (current_type_of_lex == LEX_ID)
+	{
+		//TODO
+		get_lex();
+		if (current_type_of_lex == LEX_ASSIGN)
+		{
+			if (current_type_of_lex == LEX_TRUE || current_type_of_lex == LEX_FALSE)
+			{
+				//TODO
+				get_lex();
+			}
+			else
+			{
+				throw current_lex;
+			}
+		}
+	}
+	else
+	{
+		throw current_lex;
+	}
+
 }
 
 void Parser::Operators()

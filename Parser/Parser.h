@@ -18,6 +18,9 @@ class Parser
 	void Descriptions_And_Operators();
 	void Descriptions();
 	void Description();
+	void Description_int();
+	void Description_string();
+	void Description_bool();
 	void Operators();
 	
 private:
