@@ -20,7 +20,7 @@ private:
 	void Program1();
 	void Descriptions_And_Operators();
 	void Descriptions();
-	void Description();
+	bool Description();
 	void Description_int();
 	void Description_string();
 	void Description_bool();

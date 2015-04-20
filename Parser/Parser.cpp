@@ -56,14 +56,34 @@ void Parser::Descriptions_And_Operators()
 void Parser::Descriptions()
 {
 	//TODO
-	Description();
+	if (Description())
+	{
+		if (current_type_of_lex != LEX_SEMICOLON)
+		{
+			throw current_lex;
+		}
+	}
+	else
+	{
+		return;
+	}
 	while (current_type_of_lex == LEX_SEMICOLON)
 	{
 		get_lex();
-		Description();
+		if (Description())
+		{
+			if (current_type_of_lex != LEX_SEMICOLON)
+			{
+				throw current_lex;
+			}
+		}
+		else
+		{
+			break;
+		}
 	}
 }
-void Parser::Description()
+bool Parser::Description()
 {
 	if (current_type_of_lex == LEX_INT)
 	{
@@ -73,7 +93,9 @@ void Parser::Description()
 		{
 			get_lex();
 			Description_int();
+
 		}
+		return true;
 	}
 	else if (current_type_of_lex == LEX_STRING)
 	{
@@ -84,6 +106,7 @@ void Parser::Description()
 			get_lex();
 			Description_string();
 		}
+		return true;
 	}
 	else if (current_type_of_lex == LEX_BOOL)
 	{
@@ -94,10 +117,11 @@ void Parser::Description()
 			get_lex();
 			Description_bool();
 		}
+		return true;
 	}
-	else if (current_type_of_lex == LEX_SEMICOLON)
+	else
 	{
-		throw current_lex;
+		return false;
 	}
 }
 
