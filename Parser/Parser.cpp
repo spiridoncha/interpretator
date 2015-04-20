@@ -83,7 +83,10 @@ void Parser::Descriptions()
 		}
 	}
 }
+
 bool Parser::Description()
+//true if Description exist
+//otherwise false
 {
 	if (current_type_of_lex == LEX_INT)
 	{
@@ -204,8 +207,176 @@ void Parser::Description_bool()
 	}
 
 }
+void Parser::Zero_Or_More_Operators()
+{
+	if (Operator())
+	{
+		if (current_type_of_lex != LEX_SEMICOLON)
+		{
+			throw current_lex;
+		}
+	}
+	else
+	{
+		return;
+	}
+	while (current_type_of_lex == LEX_SEMICOLON)
+	{
+		get_lex();
+		if (Operator())
+		{
+			if (current_type_of_lex != LEX_SEMICOLON)
+			{
+				throw current_lex;
+			}
+		}
+		else
+		{
+			break;
+		}
+	}
+}
 
 void Parser::Operators()
 {
+	Zero_Or_More_Operators();
+}
+
+bool Parser::Operator()
+{
+	//TODO
+	if (current_type_of_lex == LEX_IF)
+	{
+		get_lex();
+		if (current_type_of_lex == LEX_LPAREN)
+		{
+			get_lex();
+			Expression();
+			if (current_type_of_lex == LEX_RPAREN)
+			{
+				//TODO
+				get_lex();
+				if (!Operator())
+				{
+					throw current_lex;
+				}
+			}
+			else
+			{
+				throw current_lex;
+			}
+		}
+		else
+		{
+			throw current_lex;
+		}
+		return true;
+	}
+	else if (current_type_of_lex == LEX_WHILE)
+	{
+		get_lex();
+		if (current_type_of_lex == LEX_LPAREN)
+		{
+			get_lex();
+			Expression();
+			if (current_type_of_lex == LEX_RPAREN)
+			{
+				//TODO
+				get_lex();
+				if (!Operator())
+				{
+					throw current_lex;
+				}
+			}
+			else
+			{
+				throw current_lex;
+			}
+		}
+		else
+		{
+			throw current_lex;
+		}
+		return true;
+	}
+	else if (current_type_of_lex == LEX_READ)
+	{
+		get_lex();
+		if (current_type_of_lex == LEX_LPAREN)
+		{
+			get_lex();
+			if (current_type_of_lex == LEX_ID)
+			{
+				//TODO
+				get_lex();
+				if (current_type_of_lex == LEX_RPAREN)
+				{
+					get_lex();
+					//TODO
+				}
+				else
+				{
+					throw current_lex;
+				}
+			}
+			else
+			{
+				throw current_lex;
+			}
+		}
+		else
+		{
+			throw current_lex;
+		}
+		return true;
+	}
+	else if (current_type_of_lex == LEX_WRITE)
+	{
+		get_lex();
+		if (current_type_of_lex == LEX_LPAREN)
+		{
+			get_lex();
+			Expression();
+			if (current_type_of_lex == LEX_RPAREN)
+			{
+				get_lex();
+				//TODO
+			}
+			else
+			{
+				throw current_lex;
+			}
+		}
+		else
+		{
+			throw current_lex;
+		}
+		return true;
+	}
+	else if (current_type_of_lex == LEX_ID)
+	{
+		//TODO
+		get_lex();
+		if (current_type_of_lex == LEX_ASSIGN)
+		{
+			get_lex();
+			Expression();
+			//TODO
+		}
+		else
+		{
+			throw current_lex;
+		}
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 	
+
+void Parser::Expression()
+{
+	//TODO
 }

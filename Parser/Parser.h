@@ -25,6 +25,9 @@ private:
 	void Description_string();
 	void Description_bool();
 	void Operators();
+	bool Operator();
+	void Zero_Or_More_Operators();
+	void Expression();
 	
 	Scanner scan;
 	Lex current_lex;

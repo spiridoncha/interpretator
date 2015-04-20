@@ -1,0 +1,7 @@
+program
+{
+	string a = "Asd";
+	if ()
+		while ()
+			write();
+}
