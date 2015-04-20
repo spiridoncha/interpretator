@@ -1,6 +1,5 @@
-#include "Scanner/Scanner.h"
 #include <iostream>
-#include "Stack/Stack.h"
+#include "Parser/Parser.h"
 using namespace std;
 int main(int argc, char *argv[])
 {
@@ -10,13 +9,15 @@ int main(int argc, char *argv[])
 		{
 			throw(Arguments_Error(argc));
 		}
-		Scanner Scan(argv[1]);
-		Lex a;
-		do
-		{
-			a = Scan.get_lex();
-			cout << a << endl;
-		} while (a.get_type() != LEX_FINISH);
+		//Scanner Scan(argv[1]);
+		Parser Pars(argv[1]);
+		Pars.analize();
+		//Lex a;
+		//do
+		//{
+		//	a = Scan.get_lex();
+		//	cout << a << endl;
+		//} while (a.get_type() != LEX_FINISH);
 	}
 	catch (const Except &a)
 	{
@@ -25,6 +26,10 @@ int main(int argc, char *argv[])
 	catch (const char* str)
 	{
 		cout << "!!!" << str << endl;
+	}
+	catch (const Lex &lex)
+	{
+		cout << "???" << lex << endl;
 	}
 	return 0;
 }

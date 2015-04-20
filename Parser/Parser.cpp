@@ -135,6 +135,7 @@ void Parser::Description_string()
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
+			get_lex();
 			if (current_type_of_lex == LEX_CONST_STRING)
 			{
 				//TODO
@@ -161,6 +162,7 @@ void Parser::Description_bool()
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
+			get_lex();
 			if (current_type_of_lex == LEX_TRUE || current_type_of_lex == LEX_FALSE)
 			{
 				//TODO
