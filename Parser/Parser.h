@@ -14,7 +14,12 @@ class Parser
 	}
 	void analize();
 	void Program();
+	void Program1();
+	void Descriptions_And_Operators();
+	void Descriptions();
 	void Description();
+	void Operators();
+	
 private:
 	Scanner scan;
 	Lex current_lex;
