@@ -26,7 +26,6 @@ private:
 	void Description_bool();
 	void Operators();
 	bool Operator();
-	void Zero_Or_More_Operators();
 	void Begin_End();
 	void Sequence_Of_Expressions();
 	void Expression();
