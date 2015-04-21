@@ -2,5 +2,5 @@ program
 {
 	int a = 4;
 	read(a);
-	write();/**/
+	write(a, b);/**/
 }

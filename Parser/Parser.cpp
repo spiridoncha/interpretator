@@ -137,6 +137,11 @@ void Parser::Description_int()
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
 			get_lex();
+			if (current_type_of_lex == LEX_PLUS || current_type_of_lex == LEX_MINUS)
+			{
+				//TODO
+				get_lex();
+			}
 			if (current_type_of_lex == LEX_NUM)
 			{
 				//TODO

@@ -1,0 +1,12 @@
+program
+{
+	int a = -4; string c = "asd";
+	c = a+b+x/2;
+	if (x > "asd")
+	{
+	}
+	else
+	{
+		write(2);
+	}
+}
