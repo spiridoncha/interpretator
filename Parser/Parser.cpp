@@ -380,6 +380,51 @@ bool Parser::Operator()
 		}
 		return true;
 	}
+	else if (current_type_of_lex == LEX_DO)
+	{
+		get_lex();
+		Begin_End();
+		if (current_type_of_lex == LEX_WHILE)
+		{
+			get_lex();
+			if (current_type_of_lex == LEX_LPAREN)
+			{
+				get_lex();
+				Expression();
+				if (current_type_of_lex == LEX_RPAREN)
+				{
+					get_lex();
+					if (current_type_of_lex == LEX_SEMICOLON)
+					{
+						get_lex();
+					}
+					else
+					{
+						throw current_lex;
+					}
+				}
+				else
+				{
+					
+				}
+			}
+			else
+			{
+				throw current_lex;
+			}
+		}
+		else
+		{
+			throw current_lex;
+		}
+		return true;
+	}
+	else if (current_type_of_lex == LEX_FOR)
+	{
+		get_lex();
+		For_In_Parens();
+		return true;
+	}
 	else if (current_type_of_lex == LEX_ID)
 	{
 		//TODO
@@ -407,6 +452,46 @@ bool Parser::Operator()
 	else
 	{
 		return false;
+	}
+}
+
+void Parser::For_In_Parens()
+{
+	if (current_type_of_lex == LEX_LPAREN)
+	{
+		get_lex();
+		Expression();
+		if (current_type_of_lex == LEX_SEMICOLON)
+		{
+			get_lex();
+		}
+		else
+		{
+			throw current_lex;
+		}
+		Expression();
+		if (current_type_of_lex == LEX_SEMICOLON)
+		{
+			get_lex();
+		}
+		else
+		{
+			throw current_lex;
+		}
+		Expression();
+		if (current_type_of_lex == LEX_RPAREN)
+		{
+			get_lex();
+		}
+		else
+		{
+			throw current_lex;
+		}
+		Begin_End();
+	}
+	else
+	{
+		throw current_lex;
 	}
 }
 	

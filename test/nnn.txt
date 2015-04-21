@@ -1,0 +1,12 @@
+program
+{
+	int a;
+	bool c = false;
+	for(a;a;c)
+	{
+		do
+		{
+			write(a, c);
+		} while (6<5);
+	}
+}

@@ -37,6 +37,7 @@ private:
 	void Expression5();
 	void Expression6();
 	void Expression_Easy();
+	void For_In_Parens();
 	
 	Scanner scan;
 	Lex current_lex;
