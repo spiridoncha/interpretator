@@ -1,7 +1,9 @@
 program
 {
 	string a = "Asd";
-	if ()
-		while ()
-			write();
+	if (4<6)
+	{
+		while (not a)
+			write(a);
+	}
 }

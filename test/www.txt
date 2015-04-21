@@ -1,8 +1,9 @@
 program
 {
-	bool a = 5;
-	if (a >5)
+	bool a = true;
+	if (a >6)
 	{
+		a = 10;
 		write("YES");
 	}
 }

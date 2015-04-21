@@ -27,7 +27,16 @@ private:
 	void Operators();
 	bool Operator();
 	void Zero_Or_More_Operators();
+	void Begin_End();
+	void Sequence_Of_Expressions();
 	void Expression();
+	void Expression1();
+	void Expression2();
+	void Expression3();
+	void Expression4();
+	void Expression5();
+	void Expression6();
+	void Expression_Easy();
 	
 	Scanner scan;
 	Lex current_lex;

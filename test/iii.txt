@@ -3,7 +3,5 @@ program
 	bool a = true;
 	bool b = false;
 	if (not a and b)
-	{
 		write(a, b);
-	}
 }
