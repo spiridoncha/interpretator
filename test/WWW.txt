@@ -1,0 +1,8 @@
+program
+{
+	int a = 4;
+	if (a>)
+	{
+		write(a);
+	}
+}
