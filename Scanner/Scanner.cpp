@@ -31,12 +31,20 @@ Lex Scanner::get_lex()
 					}
 					c_ch = File.get_char();
 				}
-				else if ((isalpha(c_ch))||(c_ch == '{')||(c_ch == '}'))
+				else if (isalpha(c_ch))
 				{
 					buf.clear();
 					buf.add(c_ch);
 					c_ch = File.get_char();
 					Current_State = IDENT;
+				}
+				else if (c_ch == '{' || c_ch == '}')
+				{
+					buf.clear();
+					buf.add(c_ch);
+					c_ch = File.get_char();
+					j = look(buf(), TW);
+					return Lex(words[j], j);
 				}
 				else if (isdigit(c_ch))
 				{

@@ -103,4 +103,35 @@ public:
 		return tmp;
 	}
 };
+
+class Syntax_Error_Expected : public Syntax_Error
+{
+	String str;
+public:
+	Syntax_Error_Expected(int n, const String &st) : Syntax_Error(n), str(st) {}
+	virtual String what() const throw()
+	{
+		String tmp("Syntax_Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		tmp += String(" : ");
+		tmp += String("Expected ") += str;
+		return tmp;
+	}
+};
+
+class Syntax_Error_Expression : public Syntax_Error
+{
+public:
+	Syntax_Error_Expression(int n) : Syntax_Error(n) {}
+	virtual String what() const throw()
+	{
+		String tmp("Syntax_Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		tmp += String(" : ");
+		tmp += String("invalid expression");
+		return tmp;
+	}
+};
 #endif

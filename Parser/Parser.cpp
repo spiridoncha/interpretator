@@ -17,12 +17,12 @@ void Parser::Program()
 	}
 	else
 	{
-		throw Syntax_Error(scan.get_current_number_str());
+		throw Syntax_Error_Expected(scan.get_current_number_str(), String("'program'"));
 	}
 	Program1();
 	if (current_type_of_lex != LEX_FINISH)
 	{
-		throw Syntax_Error(scan.get_current_number_str());
+		throw Syntax_Error_Expected(scan.get_current_number_str(), String("'EOF'"));
 	}
 }
 	
@@ -35,7 +35,7 @@ void Parser::Program1()
 	}
 	else
 	{
-		throw Syntax_Error(scan.get_current_number_str());
+		throw Syntax_Error_Expected(scan.get_current_number_str(), String("'{'"));
 	}
 	if (current_type_of_lex == LEX_END)
 	{
@@ -43,7 +43,7 @@ void Parser::Program1()
 	}
 	else
 	{
-		throw Syntax_Error(scan.get_current_number_str());
+		throw Syntax_Error_Expected(scan.get_current_number_str(), String("'}'"));
 	}
 }
 
@@ -60,7 +60,7 @@ void Parser::Descriptions()
 	{
 		if (current_type_of_lex != LEX_SEMICOLON)
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 		}
 	}
 	else
@@ -74,7 +74,7 @@ void Parser::Descriptions()
 		{
 			if (current_type_of_lex != LEX_SEMICOLON)
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 			}
 		}
 		else
@@ -149,13 +149,13 @@ void Parser::Description_int()
 			}
 			else
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("number"));
 			}
 		}
 	}
 	else
 	{
-		throw Syntax_Error(scan.get_current_number_str());
+		throw Syntax_Error_Expected(scan.get_current_number_str(), String("identeficator"));
 	}
 }
 
@@ -175,13 +175,13 @@ void Parser::Description_string()
 			}
 			else
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("string"));
 			}
 		}
 	}
 	else
 	{
-		throw Syntax_Error(scan.get_current_number_str());
+		throw Syntax_Error_Expected(scan.get_current_number_str(), String("identeficator"));
 	}
 
 }
@@ -202,13 +202,13 @@ void Parser::Description_bool()
 			}
 			else
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("'true' or 'false'"));
 			}
 		}
 	}
 	else
 	{
-		throw Syntax_Error(scan.get_current_number_str());
+		throw Syntax_Error_Expected(scan.get_current_number_str(), String("identeficator"));
 	}
 
 }
@@ -239,7 +239,7 @@ void Parser::Begin_End()
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("'}'"));
 		}
 	}
 	else
@@ -247,7 +247,7 @@ void Parser::Begin_End()
 		//TODO
 		if (!Operator())
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("operator"));
 		}
 	}
 }
@@ -276,12 +276,12 @@ bool Parser::Operator()
 			}
 			else
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("')'"));
 			}
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("'('"));
 		}
 		return true;
 	}
@@ -300,12 +300,12 @@ bool Parser::Operator()
 			}
 			else
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("')'"));
 			}
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("'('"));
 		}
 		return true;
 	}
@@ -329,22 +329,22 @@ bool Parser::Operator()
 					}
 					else
 					{
-						throw Syntax_Error(scan.get_current_number_str());
+						throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 					}
 				}
 				else
 				{
-					throw Syntax_Error(scan.get_current_number_str());
+					throw Syntax_Error_Expected(scan.get_current_number_str(), String("')'"));
 				}
 			}
 			else
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("identeficator"));
 			}
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("'('"));
 		}
 		return true;
 	}
@@ -366,17 +366,17 @@ bool Parser::Operator()
 				}
 				else
 				{
-					throw Syntax_Error(scan.get_current_number_str());
+					throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 				}
 			}
 			else
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("')'"));
 			}
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("'('"));
 		}
 		return true;
 	}
@@ -400,22 +400,22 @@ bool Parser::Operator()
 					}
 					else
 					{
-						throw Syntax_Error(scan.get_current_number_str());
+						throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 					}
 				}
 				else
 				{
-					
+					throw Syntax_Error_Expected(scan.get_current_number_str(), String("')'"));
 				}
 			}
 			else
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("'('"));
 			}
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("'while'"));
 		}
 		return true;
 	}
@@ -440,12 +440,12 @@ bool Parser::Operator()
 			}
 			else
 			{
-				throw Syntax_Error(scan.get_current_number_str());
+				throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 			}
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("'='"));
 		}
 		return true;
 	}
@@ -467,7 +467,7 @@ void Parser::For_In_Parens()
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 		}
 		Expression();
 		if (current_type_of_lex == LEX_SEMICOLON)
@@ -476,7 +476,7 @@ void Parser::For_In_Parens()
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 		}
 		Expression();
 		if (current_type_of_lex == LEX_RPAREN)
@@ -485,13 +485,13 @@ void Parser::For_In_Parens()
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("')'"));
 		}
 		Begin_End();
 	}
 	else
 	{
-		throw Syntax_Error(scan.get_current_number_str());
+		throw Syntax_Error_Expected(scan.get_current_number_str(), String("'('"));
 	}
 }
 	
@@ -630,11 +630,11 @@ void Parser::Expression_Easy()
 		}
 		else
 		{
-			throw Syntax_Error(scan.get_current_number_str());
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String("')'"));
 		}
 	}
 	else
 	{
-		throw Syntax_Error(scan.get_current_number_str());
+		throw Syntax_Error_Expression(scan.get_current_number_str());
 	}
 }
