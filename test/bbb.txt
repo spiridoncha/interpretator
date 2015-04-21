@@ -1,0 +1,17 @@
+program
+{
+	int a = 3;
+	bool b = true;
+	if (b)
+	{
+		write(a);
+	}
+	else if (a)
+	{
+		read(b);
+	}
+	else
+	{
+		c = 23;
+	}
+}
