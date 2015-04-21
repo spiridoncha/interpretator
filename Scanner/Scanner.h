@@ -16,7 +16,7 @@ class Scanner
 	Wrap_File File;
 	Buffer buf;
 	int c_ch; // current char
-	unsigned int current_number_str;
+	int current_number_str;
 	int look(const char *buf, const char *list[]) const;
 public:
 	Lex get_lex();
@@ -26,5 +26,6 @@ public:
 		c_ch = File.get_char();
 		current_number_str = 1;
 	}
+	int get_current_number_str() { return current_number_str; }
 };
 #endif

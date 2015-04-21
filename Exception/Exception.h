@@ -88,4 +88,19 @@ public:
 		return tmp;
 	}
 };
+
+class Syntax_Error : public Except
+{
+	int n_str;
+public:
+	Syntax_Error(int n) : n_str(n) {}
+	int get_n_str() const { return n_str; }
+	virtual String what() const throw()
+	{
+		String tmp("Syntax Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		return tmp;
+	}
+};
 #endif

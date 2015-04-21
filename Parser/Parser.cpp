@@ -17,12 +17,12 @@ void Parser::Program()
 	}
 	else
 	{
-		throw current_lex;
+		throw Syntax_Error(scan.get_current_number_str());
 	}
 	Program1();
 	if (current_type_of_lex != LEX_FINISH)
 	{
-		throw current_lex;
+		throw Syntax_Error(scan.get_current_number_str());
 	}
 }
 	
@@ -35,7 +35,7 @@ void Parser::Program1()
 	}
 	else
 	{
-		throw current_lex;
+		throw Syntax_Error(scan.get_current_number_str());
 	}
 	if (current_type_of_lex == LEX_END)
 	{
@@ -43,7 +43,7 @@ void Parser::Program1()
 	}
 	else
 	{
-		throw current_lex;
+		throw Syntax_Error(scan.get_current_number_str());
 	}
 }
 
@@ -60,7 +60,7 @@ void Parser::Descriptions()
 	{
 		if (current_type_of_lex != LEX_SEMICOLON)
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 	}
 	else
@@ -74,7 +74,7 @@ void Parser::Descriptions()
 		{
 			if (current_type_of_lex != LEX_SEMICOLON)
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 		else
@@ -149,13 +149,13 @@ void Parser::Description_int()
 			}
 			else
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 	}
 	else
 	{
-		throw current_lex;
+		throw Syntax_Error(scan.get_current_number_str());
 	}
 }
 
@@ -175,13 +175,13 @@ void Parser::Description_string()
 			}
 			else
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 	}
 	else
 	{
-		throw current_lex;
+		throw Syntax_Error(scan.get_current_number_str());
 	}
 
 }
@@ -202,13 +202,13 @@ void Parser::Description_bool()
 			}
 			else
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 	}
 	else
 	{
-		throw current_lex;
+		throw Syntax_Error(scan.get_current_number_str());
 	}
 
 }
@@ -239,7 +239,7 @@ void Parser::Begin_End()
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 	}
 	else
@@ -247,7 +247,7 @@ void Parser::Begin_End()
 		//TODO
 		if (!Operator())
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 	}
 }
@@ -276,12 +276,12 @@ bool Parser::Operator()
 			}
 			else
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 		return true;
 	}
@@ -300,12 +300,12 @@ bool Parser::Operator()
 			}
 			else
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 		return true;
 	}
@@ -329,22 +329,22 @@ bool Parser::Operator()
 					}
 					else
 					{
-						throw current_lex;
+						throw Syntax_Error(scan.get_current_number_str());
 					}
 				}
 				else
 				{
-					throw current_lex;
+					throw Syntax_Error(scan.get_current_number_str());
 				}
 			}
 			else
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 		return true;
 	}
@@ -366,17 +366,17 @@ bool Parser::Operator()
 				}
 				else
 				{
-					throw current_lex;
+					throw Syntax_Error(scan.get_current_number_str());
 				}
 			}
 			else
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 		return true;
 	}
@@ -400,7 +400,7 @@ bool Parser::Operator()
 					}
 					else
 					{
-						throw current_lex;
+						throw Syntax_Error(scan.get_current_number_str());
 					}
 				}
 				else
@@ -410,12 +410,12 @@ bool Parser::Operator()
 			}
 			else
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 		return true;
 	}
@@ -440,12 +440,12 @@ bool Parser::Operator()
 			}
 			else
 			{
-				throw current_lex;
+				throw Syntax_Error(scan.get_current_number_str());
 			}
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 		return true;
 	}
@@ -467,7 +467,7 @@ void Parser::For_In_Parens()
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 		Expression();
 		if (current_type_of_lex == LEX_SEMICOLON)
@@ -476,7 +476,7 @@ void Parser::For_In_Parens()
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 		Expression();
 		if (current_type_of_lex == LEX_RPAREN)
@@ -485,13 +485,13 @@ void Parser::For_In_Parens()
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 		Begin_End();
 	}
 	else
 	{
-		throw current_lex;
+		throw Syntax_Error(scan.get_current_number_str());
 	}
 }
 	
@@ -630,11 +630,11 @@ void Parser::Expression_Easy()
 		}
 		else
 		{
-			throw current_lex;
+			throw Syntax_Error(scan.get_current_number_str());
 		}
 	}
 	else
 	{
-		throw current_lex;
+		throw Syntax_Error(scan.get_current_number_str());
 	}
 }
