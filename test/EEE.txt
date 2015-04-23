@@ -1,0 +1,13 @@
+program
+{
+    int a = 4, b, c = 5;
+    c = a + b - c;
+    if (a+c < c)
+    {
+        write("yes");
+    }
+    else
+    {
+        write("no");
+    }
+}
