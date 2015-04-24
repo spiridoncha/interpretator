@@ -44,6 +44,7 @@ enum type_of_lex
 	LEX_UNARYMINUS,
 	LEX_TIMES,
 	LEX_SLASH,
+	LEX_PERCENT,
 	LEX_LEQ,
 	LEX_NEQ,
 	LEX_GEQ,
