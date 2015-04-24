@@ -1,5 +1,4 @@
 #include "Scanner.h"
-#include <iostream>
 int Scanner::look(const char *buf, const char *list[]) const
 {
 	int i = 0;
@@ -44,6 +43,7 @@ Lex Scanner::get_lex()
 					buf.add(c_ch);
 					c_ch = File.get_char();
 					j = look(buf(), TW);
+					unary_op = false;
 					return Lex(words[j], j);
 				}
 				else if (isdigit(c_ch))
@@ -96,6 +96,7 @@ Lex Scanner::get_lex()
 				}
 				else
 				{
+					unary_op = false;
 					if ((j = look(buf(), TW)) != 0)
 					{
 						return Lex(words[j], j);
@@ -115,6 +116,7 @@ Lex Scanner::get_lex()
 				}
 				else
 				{
+					unary_op = false;
 					return Lex(LEX_NUM, d);
 				}
 				break;
@@ -127,6 +129,7 @@ Lex Scanner::get_lex()
 				else
 				{
 					j = look("/", TD);
+					unary_op = true;
 					return Lex(delims[j], j);
 				}
 				break;
@@ -162,14 +165,10 @@ Lex Scanner::get_lex()
 				{
 					buf.add(c_ch);
 					c_ch = File.get_char();
-					j = look(buf(), TD);
-					return Lex(delims[j], j);
 				}
-				else
-				{
-					j = look(buf(), TD);
-					return Lex(delims[j], j);
-				}
+				j = look(buf(), TD);
+				unary_op = true;
+				return Lex(delims[j], j);
 				break;
 			case NEQ:
 				if (c_ch == '=')
@@ -177,6 +176,7 @@ Lex Scanner::get_lex()
 					buf.add(c_ch);
 					c_ch = File.get_char();
 					j = look(buf(), TD);
+					unary_op = true;
 					return Lex(LEX_NEQ, j);
 				}
 				else
@@ -199,12 +199,25 @@ Lex Scanner::get_lex()
 					c_ch = File.get_char();
 				}
 				c_ch = File.get_char();
+				unary_op = false;
 				return Lex(LEX_CONST_STRING, 0, buf());
 				break;
 			case DELIM:
 				if ((j = look(buf(), TD)) != 0)
 				{
 					c_ch = File.get_char();
+					//TODO
+					if (!strcmp(buf(), "+") && unary_op)
+					{
+						unary_op = true;
+						return Lex(LEX_UNARYPLUS, j);
+					}
+					if (!strcmp(buf(), "-") && unary_op)
+					{
+						unary_op = true;
+						return Lex(LEX_UNARYMINUS, j);
+					}
+					unary_op = strcmp(buf(), ")") ? true : false;
 					return Lex(delims[j], j);
 				}
 				else
@@ -213,19 +226,9 @@ Lex Scanner::get_lex()
 				}
 				break;
 			default:
-				throw("default in Scanner::get_lex()");
+				throw Lex_Error(current_number_str);
 		}
 	} while(true);
-/*
-	int a;
-	do
-	{
-		a = File.get_char();
-		if (a != EOF)
-			return Lex();
-	} while(a != EOF);
-	return Lex(LEX_FINISH);
-*/
 }
 
 const char* Scanner::TW[] =

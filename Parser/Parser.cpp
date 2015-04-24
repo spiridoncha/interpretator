@@ -587,6 +587,13 @@ void Parser::Expression6()
 		get_lex();
 		Expression6();
 	}
+	else if (current_type_of_lex == LEX_UNARYMINUS || current_type_of_lex == LEX_UNARYPLUS)
+	{
+		//TODO
+		//std::cout << "1" << scan.get_current_number_str();
+		get_lex();
+		Expression6();
+	}
 	else
 	{
 		Expression_Easy();
