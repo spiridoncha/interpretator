@@ -571,7 +571,7 @@ void Parser::Expression4()
 void Parser::Expression5()
 {
 	Expression6();
-	while (current_type_of_lex == LEX_TIMES || current_type_of_lex == LEX_SLASH)
+	while (current_type_of_lex == LEX_TIMES || current_type_of_lex == LEX_SLASH || current_type_of_lex == LEX_PERCENT)
 	{
 		//TODO
 		get_lex();

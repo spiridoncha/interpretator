@@ -1,0 +1,12 @@
+program
+{
+	int a=4;
+	if (a % 2 == 1)
+	{
+		write(a);
+	}
+	else
+	{
+		write(a+1);
+	}
+}
