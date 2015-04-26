@@ -132,11 +132,13 @@ void Parser::Description_int()
 {
 	if (current_type_of_lex == LEX_ID)
 	{
+		int id = current_value_int_of_lex;
 		declare(LEX_INT);
 		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
+			assign_in_description(id);
 			get_lex();
 			if (current_type_of_lex == LEX_PLUS || current_type_of_lex == LEX_MINUS)
 			{
@@ -164,11 +166,13 @@ void Parser::Description_string()
 {
 	if (current_type_of_lex == LEX_ID)
 	{
+		int id = current_value_int_of_lex;
 		declare(LEX_STRING);
 		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
+			assign_in_description(id);
 			get_lex();
 			if (current_type_of_lex == LEX_CONST_STRING)
 			{
@@ -192,11 +196,13 @@ void Parser::Description_bool()
 {
 	if (current_type_of_lex == LEX_ID)
 	{
+		int id = current_value_int_of_lex;
 		declare(LEX_BOOL);
 		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
+			assign_in_description(id);
 			get_lex();
 			if (current_type_of_lex == LEX_TRUE || current_type_of_lex == LEX_FALSE)
 			{
@@ -320,6 +326,7 @@ bool Parser::Operator()
 			get_lex();
 			if (current_type_of_lex == LEX_ID)
 			{
+				check_id_in_read();
 				//TODO
 				get_lex();
 				if (current_type_of_lex == LEX_RPAREN)
@@ -430,6 +437,7 @@ bool Parser::Operator()
 	}
 	else if (current_type_of_lex == LEX_ID)
 	{
+		check_id_in_assign();
 		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
@@ -607,6 +615,7 @@ void Parser::Expression_Easy()
 {
 	if (current_type_of_lex == LEX_ID)
 	{
+		check_id();
 		//TODO
 		get_lex();
 	}
@@ -651,13 +660,67 @@ void Parser::Expression_Easy()
 
 void Parser::declare(type_of_lex type)
 {
-	if (scan.get_TID()[current_value_int_of_lex].get_declare())
+	Ident &id = scan.get_TID()[current_value_int_of_lex];
+	if (id.get_declare())
+	{
+		throw "aabb";
+	}
+	else
+	{
+		id.put_declare();
+		id.put_type(type);
+	}
+}
+
+void Parser::assign_in_description(int i)
+{
+	Ident &id = scan.get_TID()[i];
+	id.put_assign();
+}
+void Parser::check_id()
+{
+	Ident &id = scan.get_TID()[current_value_int_of_lex];
+	if (!id.get_declare())
+	{
+		throw "aa id";
+	}
+	else if (!id.get_assign())
+	{
+		std::cout << String("WARNING: variable ") << String(id.get_name()) << String(" don't assign ") << String("in str: ") << String::int_to_str(scan.get_current_number_str())<< std::endl;
+	}
+	else
+	{
+		//push
+	}
+}
+
+
+void Parser::check_id_in_read()
+{
+	Ident &id = scan.get_TID()[current_value_int_of_lex];
+	if (!id.get_declare())
+	{
+		throw "aa read";
+	}
+	else if (id.get_type() == LEX_BOOL)
+	{
+		throw "bb";
+	}
+	else if (!id.get_assign())
+	{
+		id.put_assign();
+	}
+}
+
+void Parser::check_id_in_assign()
+{
+	Ident &id = scan.get_TID()[current_value_int_of_lex];
+	if (!id.get_declare())
 	{
 		throw "aa";
 	}
 	else
 	{
-		scan.get_TID()[current_value_int_of_lex].put_declare();
-		scan.get_TID()[current_value_int_of_lex].put_type(type);
+		id.put_assign();
 	}
 }

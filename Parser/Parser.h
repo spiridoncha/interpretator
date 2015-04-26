@@ -2,6 +2,7 @@
 #define PARSER_H
 #include "../Scanner/Scanner.h"
 #include "../Stack/Stack.h"
+#include <iostream>
 class Parser
 {
 public:
@@ -39,7 +40,10 @@ private:
 	void For_In_Parens();
 
 	void declare(type_of_lex);
+	void assign_in_description(int);
 	void check_id();
+	void check_id_in_read();
+	void check_id_in_assign();
 	void check_op();
 	void check_unary();
 	
