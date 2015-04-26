@@ -132,6 +132,7 @@ void Parser::Description_int()
 {
 	if (current_type_of_lex == LEX_ID)
 	{
+		declare(LEX_INT);
 		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
@@ -163,6 +164,7 @@ void Parser::Description_string()
 {
 	if (current_type_of_lex == LEX_ID)
 	{
+		declare(LEX_STRING);
 		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
@@ -190,6 +192,7 @@ void Parser::Description_bool()
 {
 	if (current_type_of_lex == LEX_ID)
 	{
+		declare(LEX_BOOL);
 		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
@@ -643,5 +646,18 @@ void Parser::Expression_Easy()
 	else
 	{
 		throw Syntax_Error_Expression(scan.get_current_number_str());
+	}
+}
+
+void Parser::declare(type_of_lex type)
+{
+	if (scan.get_TID()[current_value_int_of_lex].get_declare())
+	{
+		throw "aa";
+	}
+	else
+	{
+		scan.get_TID()[current_value_int_of_lex].put_declare();
+		scan.get_TID()[current_value_int_of_lex].put_type(type);
 	}
 }
