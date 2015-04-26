@@ -30,5 +30,6 @@ public:
 		current_number_str = 1;
 	}
 	int get_current_number_str() { return current_number_str; }
+	Table_Ident& get_TID() { return TID; }
 };
 #endif
