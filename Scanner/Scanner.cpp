@@ -181,7 +181,7 @@ Lex Scanner::get_lex()
 				}
 				else
 				{
-					throw Lex_Error(current_number_str);
+					throw Lex_Error_Incorrect(current_number_str);
 				}
 				break;
 			case STR:
@@ -226,7 +226,7 @@ Lex Scanner::get_lex()
 				}
 				break;
 			default:
-				throw Lex_Error(current_number_str);
+				throw "default in Scanner";
 		}
 	} while(true);
 }

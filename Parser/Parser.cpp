@@ -663,7 +663,7 @@ void Parser::declare(type_of_lex type)
 	Ident &id = scan.get_TID()[current_value_int_of_lex];
 	if (id.get_declare())
 	{
-		throw "aabb";
+		throw Semantic_Error_Twise_Declare(scan.get_current_number_str(), String(id.get_name()));
 	}
 	else
 	{
@@ -682,7 +682,7 @@ void Parser::check_id()
 	Ident &id = scan.get_TID()[current_value_int_of_lex];
 	if (!id.get_declare())
 	{
-		throw "aa id";
+		throw Semantic_Error_Not_Declare(scan.get_current_number_str(), String(id.get_name()));
 	}
 	else if (!id.get_assign())
 	{
@@ -700,11 +700,11 @@ void Parser::check_id_in_read()
 	Ident &id = scan.get_TID()[current_value_int_of_lex];
 	if (!id.get_declare())
 	{
-		throw "aa read";
+		throw Semantic_Error_Not_Declare(scan.get_current_number_str(), String(id.get_name()));
 	}
 	else if (id.get_type() == LEX_BOOL)
 	{
-		throw "bb";
+		throw Semantic_Error_Read_Bool(scan.get_current_number_str());
 	}
 	else if (!id.get_assign())
 	{
@@ -717,7 +717,7 @@ void Parser::check_id_in_assign()
 	Ident &id = scan.get_TID()[current_value_int_of_lex];
 	if (!id.get_declare())
 	{
-		throw "aa";
+		throw Semantic_Error_Not_Declare(scan.get_current_number_str(), String(id.get_name()));
 	}
 	else
 	{

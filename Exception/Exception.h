@@ -41,13 +41,6 @@ class Lex_Error : public Except
 public:
 	Lex_Error(int n) : n_str(n) {}
 	int get_n_str() const { return n_str; }
-	virtual String what() const throw()
-	{
-		String tmp("Lex_Error ");
-		tmp += String("in str: ");
-		tmp += String::int_to_str(get_n_str());
-		return tmp;
-	}
 };
 
 class Lex_Error_Comment : public Lex_Error
@@ -95,13 +88,6 @@ class Syntax_Error : public Except
 public:
 	Syntax_Error(int n) : n_str(n) {}
 	int get_n_str() const { return n_str; }
-	virtual String what() const throw()
-	{
-		String tmp("Syntax Error: ");
-		tmp += String("in str: ");
-		tmp += String::int_to_str(get_n_str());
-		return tmp;
-	}
 };
 
 class Syntax_Error_Expected : public Syntax_Error
@@ -134,4 +120,62 @@ public:
 		return tmp;
 	}
 };
+
+class Semantic_Error : public Except
+{
+	int n_str;
+public:
+	Semantic_Error(int n) : n_str(n) {}
+	int get_n_str() const { return n_str; }
+};
+
+class Semantic_Error_Twise_Declare : public Semantic_Error
+{
+	String name;
+public:
+	Semantic_Error_Twise_Declare(int n, const String &str) : Semantic_Error(n), name(str) {}
+	virtual String what() const throw()
+	{
+		String tmp("Semantic_Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		tmp += String(" : ");
+		tmp += String("twice declare");
+		tmp += String("'") + name + String("'");
+		return tmp;
+	}
+};
+
+class Semantic_Error_Not_Declare : public Semantic_Error
+{
+	String name;
+public:
+	Semantic_Error_Not_Declare(int n, const String &str) : Semantic_Error(n), name(str) {}
+	virtual String what() const throw()
+	{
+		String tmp("Semantic_Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		tmp += String(" : ");
+		tmp += String("not declare ");
+		tmp += String("'") + name + String("'");
+		return tmp;
+	}
+};
+
+class Semantic_Error_Read_Bool : public Semantic_Error
+{
+public:
+	Semantic_Error_Read_Bool(int n) : Semantic_Error(n) {}
+	virtual String what() const throw()
+	{
+		String tmp("Semantic_Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		tmp += String(" : ");
+		tmp += String("bool not exist for read");
+		return tmp;
+	}
+};
+
 #endif
