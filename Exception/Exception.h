@@ -140,7 +140,7 @@ public:
 		tmp += String("in str: ");
 		tmp += String::int_to_str(get_n_str());
 		tmp += String(" : ");
-		tmp += String("twice declare");
+		tmp += String("twice declare ");
 		tmp += String("'") + name + String("'");
 		return tmp;
 	}
@@ -157,7 +157,7 @@ public:
 		tmp += String("in str: ");
 		tmp += String::int_to_str(get_n_str());
 		tmp += String(" : ");
-		tmp += String("not declare ");
+		tmp += String("not declare " );
 		tmp += String("'") + name + String("'");
 		return tmp;
 	}
