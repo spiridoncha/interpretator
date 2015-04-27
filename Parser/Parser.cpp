@@ -760,7 +760,7 @@ void Parser::eq_type()
 {
 	if (st_lex.pop() != st_lex.pop())
 	{
-		throw "eq_t";
+		throw Semantic_Error_Type_No_Equal(scan.get_current_number_str());
 	}
 }
 
@@ -768,7 +768,7 @@ void Parser::eq_bool()
 {
 	if (st_lex.pop() != LEX_BOOL)
 	{
-		throw "eq_b";
+		throw Semantic_Error_Expected_Bool_Expression(scan.get_current_number_str());
 	}
 }
 
@@ -799,7 +799,7 @@ void Parser::check_op()
 	else if (condition_string_compare && s)
 		ret = LEX_BOOL;
 	else
-		throw "c_o";
+		throw Semantic_Error_Operation_Do_Not_Exist(scan.get_current_number_str());
 	st_lex.push(ret);
 }
 
@@ -807,7 +807,7 @@ void Parser::check_not()
 {
 	if (st_lex.pop() != LEX_BOOL)
 	{
-		throw "not";
+		throw Semantic_Error_Operation_Do_Not_Exist(scan.get_current_number_str());
 	}
 	else
 	{
@@ -819,7 +819,7 @@ void Parser::check_unary_p_m()
 {
 	if (st_lex.pop() != LEX_INT)
 	{
-		throw "unar";
+		throw Semantic_Error_Operation_Do_Not_Exist(scan.get_current_number_str());
 	}
 	else
 	{

@@ -178,4 +178,49 @@ public:
 	}
 };
 
+class Semantic_Error_Expected_Bool_Expression : public Semantic_Error
+{
+public:
+	Semantic_Error_Expected_Bool_Expression(int n) : Semantic_Error(n) {}
+	virtual String what() const throw()
+	{
+		String tmp("Semantic_Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		tmp += String(" : ");
+		tmp += String("expected bool expression");
+		return tmp;
+	}
+};
+
+class Semantic_Error_Type_No_Equal : public Semantic_Error
+{
+public:
+	Semantic_Error_Type_No_Equal(int n) : Semantic_Error(n) {}
+	virtual String what() const throw()
+	{
+		String tmp("Semantic_Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		tmp += String(" : ");
+		tmp += String("in assign type no equal");
+		return tmp;
+	}
+};
+
+class Semantic_Error_Operation_Do_Not_Exist : public Semantic_Error
+{
+public:
+	Semantic_Error_Operation_Do_Not_Exist(int n) : Semantic_Error(n) {}
+	virtual String what() const throw()
+	{
+		String tmp("Semantic_Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		tmp += String(" : ");
+		tmp += String("operation do not exist");
+		return tmp;
+	}
+};
+
 #endif

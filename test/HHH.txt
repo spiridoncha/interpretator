@@ -1,0 +1,10 @@
+program
+{
+	int a = 2, i;
+	bool b = true;
+	write(b, i = a);
+	for(i = 2; a ;i=i+1)
+	{
+		write(b, a = i)
+	}
+}
