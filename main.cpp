@@ -16,5 +16,9 @@ int main(int argc, char *argv[])
 	{
 		cout << a.what() << endl;
 	}
+	catch(const char *a)
+	{
+		cout << a << endl;
+	}
 	return 0;
 }

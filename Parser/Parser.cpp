@@ -97,7 +97,6 @@ bool Parser::Description()
 		{
 			get_lex();
 			Description_int();
-
 		}
 		return true;
 	}
@@ -271,6 +270,8 @@ bool Parser::Operator()
 		{
 			get_lex();
 			Expression();
+			eq_bool();
+			//TODO
 			if (current_type_of_lex == LEX_RPAREN)
 			{
 				//TODO
@@ -301,6 +302,7 @@ bool Parser::Operator()
 		{
 			get_lex();
 			Expression();
+			eq_bool();
 			if (current_type_of_lex == LEX_RPAREN)
 			{
 				//TODO
@@ -401,6 +403,7 @@ bool Parser::Operator()
 			{
 				get_lex();
 				Expression();
+				eq_bool();
 				if (current_type_of_lex == LEX_RPAREN)
 				{
 					get_lex();
@@ -444,6 +447,7 @@ bool Parser::Operator()
 		{
 			get_lex();
 			Expression();
+			eq_type();
 			//TODO
 			if (current_type_of_lex == LEX_SEMICOLON)
 			{
@@ -481,6 +485,7 @@ void Parser::For_In_Parens()
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 		}
 		Expression();
+		eq_bool();
 		if (current_type_of_lex == LEX_SEMICOLON)
 		{
 			get_lex();
@@ -523,12 +528,15 @@ void Parser::Expression()
 	//TODO
 	if (current_type_of_lex == LEX_ID_EXPR)
 	{
+		check_id();
 		get_lex();	
 		while (current_type_of_lex == LEX_ASSIGN)
 		{
 			//TODO
+			st_lex.push(current_type_of_lex);
 			get_lex();
 			Expression();
+			check_op();
 		}
 	}
 	else
@@ -542,9 +550,10 @@ void Parser::Expression1()
 	Expression2();
 	while (current_type_of_lex == LEX_OR)
 	{
-		//TODO
+		st_lex.push(current_type_of_lex);
 		get_lex();
 		Expression2();
+		check_op();
 	}
 }
 
@@ -553,9 +562,10 @@ void Parser::Expression2()
 	Expression3();
 	while (current_type_of_lex == LEX_AND)
 	{
-		//TODO
+		st_lex.push(current_type_of_lex);
 		get_lex();
 		Expression3();
+		check_op();
 	}
 
 }
@@ -570,9 +580,10 @@ void Parser::Expression3()
 		current_type_of_lex == LEX_LEQ ||
 		current_type_of_lex == LEX_GEQ)
 	{
-		//TODO
+		st_lex.push(current_type_of_lex);
 		get_lex();
 		Expression4();
+		check_op();
 	}
 		
 }
@@ -582,9 +593,10 @@ void Parser::Expression4()
 	Expression5();
 	while (current_type_of_lex == LEX_PLUS || current_type_of_lex == LEX_MINUS)
 	{
-		//TODO
+		st_lex.push(current_type_of_lex);
 		get_lex();
 		Expression5();
+		check_op();
 	}
 }
 
@@ -593,9 +605,10 @@ void Parser::Expression5()
 	Expression6();
 	while (current_type_of_lex == LEX_TIMES || current_type_of_lex == LEX_SLASH || current_type_of_lex == LEX_PERCENT)
 	{
-		//TODO
+		st_lex.push(current_type_of_lex);
 		get_lex();
 		Expression6();
+		check_op();
 	}
 }
 
@@ -606,6 +619,7 @@ void Parser::Expression6()
 		//TODO
 		get_lex();
 		Expression6();
+		check_not();
 	}
 	else if (current_type_of_lex == LEX_UNARYMINUS || current_type_of_lex == LEX_UNARYPLUS)
 	{
@@ -613,6 +627,7 @@ void Parser::Expression6()
 		//std::cout << "1" << scan.get_current_number_str();
 		get_lex();
 		Expression6();
+		check_unary_p_m();
 	}
 	else
 	{
@@ -630,21 +645,25 @@ void Parser::Expression_Easy()
 	}
 	else if (current_type_of_lex == LEX_NUM)
 	{
+		st_lex.push(LEX_INT);
 		//TODO
 		get_lex();
 	}
 	else if (current_type_of_lex == LEX_CONST_STRING)
 	{
+		st_lex.push(LEX_STRING);
 		//TODO
 		get_lex();
 	}
 	else if (current_type_of_lex == LEX_TRUE)
 	{
+		st_lex.push(LEX_BOOL);
 		//TODO
 		get_lex();
 	}
 	else if (current_type_of_lex == LEX_FALSE)
 	{
+		st_lex.push(LEX_BOOL);
 		//TODO
 		get_lex();
 	}
@@ -697,10 +716,11 @@ void Parser::check_id()
 	else if (!id.get_assign())
 	{
 		std::cout << String("WARNING: variable ") << String(id.get_name()) << String(" don't assign ") << String("in str: ") << String::int_to_str(scan.get_current_number_str())<< std::endl;
+		st_lex.push(id.get_type());
 	}
 	else
 	{
-		//push
+		st_lex.push(id.get_type());
 	}
 }
 
@@ -732,6 +752,7 @@ void Parser::check_id_in_assign()
 	else
 	{
 		id.put_assign();
+		st_lex.push(id.get_type());
 	}
 }
 
@@ -739,7 +760,7 @@ void Parser::eq_type()
 {
 	if (st_lex.pop() != st_lex.pop())
 	{
-		throw "as";
+		throw "eq_t";
 	}
 }
 
@@ -747,7 +768,7 @@ void Parser::eq_bool()
 {
 	if (st_lex.pop() != LEX_BOOL)
 	{
-		throw "asd";
+		throw "eq_b";
 	}
 }
 
@@ -778,7 +799,7 @@ void Parser::check_op()
 	else if (condition_string_compare && s)
 		ret = LEX_BOOL;
 	else
-		throw "qqq";
+		throw "c_o";
 	st_lex.push(ret);
 }
 
@@ -786,7 +807,7 @@ void Parser::check_not()
 {
 	if (st_lex.pop() != LEX_BOOL)
 	{
-		throw "Asdasd";
+		throw "not";
 	}
 	else
 	{
@@ -798,7 +819,7 @@ void Parser::check_unary_p_m()
 {
 	if (st_lex.pop() != LEX_INT)
 	{
-		throw "assdfg";
+		throw "unar";
 	}
 	else
 	{
