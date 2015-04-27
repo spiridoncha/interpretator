@@ -6,8 +6,9 @@ class Stack
 {
 	//friend class Stack_Iterator;
 public:
-	explicit Stack();
+	Stack();
 	~Stack() { delete[] p; }
+	void reset() { real_size = 0;}
 	void push(const T&);
 	T pop();
 	bool is_Empty() const { return real_size == 0;}

@@ -52,7 +52,6 @@ private:
 	type_of_lex current_type_of_lex;
 	int current_value_int_of_lex;
 	String current_value_str_of_lex;
-	//Stack<int> st_int;
-	//Stack<type_of_lex> st_lex;
+	Stack<type_of_lex> st_lex;
 };
 #endif

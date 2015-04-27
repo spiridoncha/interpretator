@@ -1,0 +1,9 @@
+program
+{
+	int a = 6;
+	bool b = true;
+	if (- not b)
+	{
+		write(b, -a);
+	}
+}
