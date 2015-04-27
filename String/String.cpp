@@ -46,7 +46,7 @@ String String::int_to_str(const int n)
 		char *p = new char[2];
 		p[0] = mod;
 		p[1] = '\0';
-		tmp += String(p);
+		tmp = String(p) + tmp;
 		delete[] p;
 		i/=10;
 	}
