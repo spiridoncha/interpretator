@@ -11,6 +11,14 @@ void Parser::analize()
 
 void Parser::Program()
 {
+	if (current_type_of_lex == LEX_NULL)
+	{
+		get_lex();
+	}
+	else
+	{
+		throw "asda";
+	}
 	if (current_type_of_lex == LEX_PROGRAM)
 	{
 		get_lex();
@@ -130,7 +138,7 @@ bool Parser::Description()
 
 void Parser::Description_int()
 {
-	if (current_type_of_lex == LEX_ID)
+	if (current_type_of_lex == LEX_ID || current_type_of_lex == LEX_ID_EXPR)
 	{
 		int id = current_value_int_of_lex;
 		declare(LEX_INT);
@@ -164,7 +172,7 @@ void Parser::Description_int()
 
 void Parser::Description_string()
 {
-	if (current_type_of_lex == LEX_ID)
+	if (current_type_of_lex == LEX_ID || current_type_of_lex == LEX_ID_EXPR)
 	{
 		int id = current_value_int_of_lex;
 		declare(LEX_STRING);
@@ -194,7 +202,7 @@ void Parser::Description_string()
 
 void Parser::Description_bool()
 {
-	if (current_type_of_lex == LEX_ID)
+	if (current_type_of_lex == LEX_ID || current_type_of_lex == LEX_ID_EXPR)
 	{
 		int id = current_value_int_of_lex;
 		declare(LEX_BOOL);
@@ -435,7 +443,7 @@ bool Parser::Operator()
 		For_In_Parens();
 		return true;
 	}
-	else if (current_type_of_lex == LEX_ID)
+	else if (current_type_of_lex == LEX_ID || current_type_of_lex == LEX_ID_EXPR)
 	{
 		check_id_in_assign();
 		//TODO
@@ -517,13 +525,22 @@ void Parser::Sequence_Of_Expressions()
 		Expression();
 	}
 }
+
 void Parser::Expression()
 {
-	Expression1();
-	while (current_type_of_lex == LEX_ASSIGN)
+	//TODO
+	if (current_type_of_lex == LEX_ID_EXPR)
 	{
-		//TODO
-		get_lex();
+		get_lex();	
+		while (current_type_of_lex == LEX_ASSIGN)
+		{
+			//TODO
+			get_lex();
+			Expression();
+		}
+	}
+	else
+	{
 		Expression1();
 	}
 }

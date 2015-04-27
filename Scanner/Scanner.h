@@ -19,14 +19,21 @@ class Scanner
 	int c_ch; // current char
 	int current_number_str;
 	bool unary_op;// operation maybe unary ? true : false
+	bool id_expr; // id may be in expression ? true : false
 	int look(const char *buf, const char *list[]) const;
+
+	Lex ret;
+	Lex next;
 public:
 	Lex get_lex();
 	Scanner(const char *program) : File(program)
 	{
+		ret = Lex(LEX_NULL);
+		next = Lex(LEX_NULL);
 		Current_State = H;
 		c_ch = File.get_char();
 		unary_op = true;
+		id_expr = false;
 		current_number_str = 1;
 	}
 	int get_current_number_str() { return current_number_str; }

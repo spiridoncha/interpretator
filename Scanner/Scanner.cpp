@@ -17,6 +17,8 @@ Lex Scanner::get_lex()
 {
 	int d, j;
 	Current_State = H;
+	ret = next;
+	id_expr = false;
 	do
 	{
 		switch (Current_State)
@@ -44,7 +46,12 @@ Lex Scanner::get_lex()
 					c_ch = File.get_char();
 					j = look(buf(), TW);
 					unary_op = false;
-					return Lex(words[j], j);
+					next = Lex(words[j], j);	
+					if (ret.get_type() == LEX_ID && id_expr)
+					{
+						return Lex(LEX_ID_EXPR, ret.get_value_int());
+					}
+					return ret;
 				}
 				else if (isdigit(c_ch))
 				{
@@ -79,7 +86,12 @@ Lex Scanner::get_lex()
 				}
 				else if (c_ch == EOF)
 				{
-					return Lex(LEX_FINISH);
+					next = Lex(LEX_FINISH);
+					if (ret.get_type() == LEX_ID && id_expr)
+					{
+						return Lex(LEX_ID_EXPR, ret.get_value_int());
+					}
+					return ret;
 				}
 				else
 				{
@@ -99,12 +111,23 @@ Lex Scanner::get_lex()
 					unary_op = false;
 					if ((j = look(buf(), TW)) != 0)
 					{
-						return Lex(words[j], j);
+						next = Lex(words[j], j);
+						if (ret.get_type() == LEX_ID && id_expr)
+						{
+							return Lex(LEX_ID_EXPR, ret.get_value_int());
+						}
+						return ret;
 					}
 					else
 					{
 						j = TID.put(buf());
-						return Lex(LEX_ID, j);
+						next = Lex(LEX_ID, j);
+						if (ret.get_type() == LEX_ID && id_expr)
+						{
+							return Lex(LEX_ID_EXPR, ret.get_value_int());
+						}
+						return ret;
+
 					}
 				}
 				break;
@@ -117,7 +140,12 @@ Lex Scanner::get_lex()
 				else
 				{
 					unary_op = false;
-					return Lex(LEX_NUM, d);
+					next = Lex(LEX_NUM, d);
+					if (ret.get_type() == LEX_ID && id_expr)
+					{
+						return Lex(LEX_ID_EXPR, ret.get_value_int());
+					}
+					return ret;
 				}
 				break;
 			case COMMENT0:
@@ -130,7 +158,12 @@ Lex Scanner::get_lex()
 				{
 					j = look("/", TD);
 					unary_op = true;
-					return Lex(delims[j], j);
+					next = Lex(delims[j], j);
+					if (ret.get_type() == LEX_ID && id_expr)
+					{
+						return Lex(LEX_ID_EXPR, ret.get_value_int());
+					}
+					return ret;
 				}
 				break;
 			case COMMENT:
@@ -168,7 +201,16 @@ Lex Scanner::get_lex()
 				}
 				j = look(buf(), TD);
 				unary_op = true;
-				return Lex(delims[j], j);
+				if (!strcmp(buf(), "="))
+				{
+					id_expr = true;
+				}
+				next = Lex(delims[j], j);
+				if (ret.get_type() == LEX_ID && id_expr)
+				{
+					return Lex(LEX_ID_EXPR, ret.get_value_int());
+				}
+				return ret;
 				break;
 			case NEQ:
 				if (c_ch == '=')
@@ -177,7 +219,12 @@ Lex Scanner::get_lex()
 					c_ch = File.get_char();
 					j = look(buf(), TD);
 					unary_op = true;
-					return Lex(LEX_NEQ, j);
+					next = Lex(LEX_NEQ, j);
+					if (ret.get_type() == LEX_ID && id_expr)
+					{
+						return Lex(LEX_ID_EXPR, ret.get_value_int());
+					}
+					return ret;
 				}
 				else
 				{
@@ -200,7 +247,12 @@ Lex Scanner::get_lex()
 				}
 				c_ch = File.get_char();
 				unary_op = false;
-				return Lex(LEX_CONST_STRING, 0, buf());
+				next = Lex(LEX_CONST_STRING, 0, buf());
+				if (ret.get_type() == LEX_ID && id_expr)
+				{
+					return Lex(LEX_ID_EXPR, ret.get_value_int());
+				}
+				return ret;
 				break;
 			case DELIM:
 				if ((j = look(buf(), TD)) != 0)
@@ -210,15 +262,33 @@ Lex Scanner::get_lex()
 					if (!strcmp(buf(), "+") && unary_op)
 					{
 						unary_op = true;
-						return Lex(LEX_UNARYPLUS, j);
+						next = Lex(LEX_UNARYPLUS, j);
+						if (ret.get_type() == LEX_ID && id_expr)
+						{
+							return Lex(LEX_ID_EXPR, ret.get_value_int());
+						}
+						return ret;
 					}
-					if (!strcmp(buf(), "-") && unary_op)
+					else if (!strcmp(buf(), "-") && unary_op)
 					{
 						unary_op = true;
-						return Lex(LEX_UNARYMINUS, j);
+						next = Lex(LEX_UNARYMINUS, j);
+						if (ret.get_type() == LEX_ID && id_expr)
+						{
+							return Lex(LEX_ID_EXPR, ret.get_value_int());
+						}
+						return ret;
 					}
-					unary_op = strcmp(buf(), ")") ? true : false;
-					return Lex(delims[j], j);
+					else
+					{
+						unary_op = strcmp(buf(), ")") ? true : false;
+						next = Lex(delims[j], j);
+						if (ret.get_type() == LEX_ID && id_expr)
+						{
+							return Lex(LEX_ID_EXPR, ret.get_value_int());
+						}
+						return ret;
+					}
 				}
 				else
 				{

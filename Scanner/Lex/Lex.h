@@ -48,7 +48,8 @@ enum type_of_lex
 	LEX_LEQ,
 	LEX_NEQ,
 	LEX_GEQ,
-	LEX_APOST
+	LEX_APOST,
+	LEX_ID_EXPR
 };
 
 class Lex
@@ -58,6 +59,8 @@ class Lex
 	String str;
 public:
 	Lex(type_of_lex t = LEX_NULL, int v = 0, const char* st=nullptr) : type_lex(t), value_lex(v), str(st) {}
+	void operator=(const Lex &other) { type_lex = other.type_lex; value_lex = other.value_lex; str = other.str; }
+	Lex(const Lex &other) { type_lex = other.type_lex; value_lex = other.value_lex; str = other.str; }
 	type_of_lex get_type() const { return type_lex; }
 	int get_value_int() const { return value_lex; }
 	String get_value_str() const { return str; }
