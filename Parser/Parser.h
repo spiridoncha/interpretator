@@ -44,6 +44,8 @@ private:
 	void check_id();
 	void check_id_in_read();
 	void check_id_in_assign();
+	void eq_type();
+	void eq_bool();
 	void check_op();
 	void check_not();
 	void check_unary_p_m();

@@ -11,14 +11,7 @@ void Parser::analize()
 
 void Parser::Program()
 {
-	if (current_type_of_lex == LEX_NULL)
-	{
-		get_lex();
-	}
-	else
-	{
-		throw "asda";
-	}
+	get_lex();//first lex is implicit LEX_NULL
 	if (current_type_of_lex == LEX_PROGRAM)
 	{
 		get_lex();
@@ -142,7 +135,6 @@ void Parser::Description_int()
 	{
 		int id = current_value_int_of_lex;
 		declare(LEX_INT);
-		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
@@ -694,6 +686,7 @@ void Parser::assign_in_description(int i)
 	Ident &id = scan.get_TID()[i];
 	id.put_assign();
 }
+
 void Parser::check_id()
 {
 	Ident &id = scan.get_TID()[current_value_int_of_lex];
@@ -742,14 +735,73 @@ void Parser::check_id_in_assign()
 	}
 }
 
+void Parser::eq_type()
+{
+	if (st_lex.pop() != st_lex.pop())
+	{
+		throw "as";
+	}
+}
+
+void Parser::eq_bool()
+{
+	if (st_lex.pop() != LEX_BOOL)
+	{
+		throw "asd";
+	}
+}
+
 void Parser::check_op()
 {
+	type_of_lex a, b, aOPb, ret;
+	bool condition_int, condition_int_compare, condition_bool, condition_string, condition_string_compare;
+	bool i, s, bl;
+	a = st_lex.pop();
+	aOPb = st_lex.pop();
+	b = st_lex.pop(); 
+	condition_string = (aOPb == LEX_PLUS) || (aOPb == LEX_ASSIGN);
+	condition_int = condition_string || (aOPb == LEX_MINUS) || (aOPb == LEX_SLASH) || (aOPb == LEX_TIMES) || (aOPb == LEX_PERCENT);
+	condition_bool = (aOPb == LEX_OR) || (aOPb == LEX_AND);
+	condition_string_compare = (aOPb == LEX_EQ) || (aOPb == LEX_NEQ) || (aOPb == LEX_LSS) || (aOPb == LEX_GTR);
+	condition_int_compare = condition_string_compare || (aOPb == LEX_LEQ) || (aOPb == LEX_GEQ);
+	i = (a == LEX_INT) && (b == LEX_INT);
+	s = (a == LEX_STRING) && (b == LEX_STRING);
+	bl = (a == LEX_BOOL) && (b == LEX_BOOL);
+	if (condition_string && s)
+		ret = LEX_STRING;
+	else if (condition_int && i)
+		ret = LEX_INT;
+	else if (condition_bool && bl)
+		ret = LEX_BOOL;
+	else if (condition_int_compare && i)
+		ret = LEX_BOOL;
+	else if (condition_string_compare && s)
+		ret = LEX_BOOL;
+	else
+		throw "qqq";
+	st_lex.push(ret);
 }
 
 void Parser::check_not()
 {
+	if (st_lex.pop() != LEX_BOOL)
+	{
+		throw "Asdasd";
+	}
+	else
+	{
+		st_lex.push(LEX_BOOL);
+	}
 }
 
 void Parser::check_unary_p_m()
 {
+	if (st_lex.pop() != LEX_INT)
+	{
+		throw "assdfg";
+	}
+	else
+	{
+		st_lex.push(LEX_INT);
+	}
 }
