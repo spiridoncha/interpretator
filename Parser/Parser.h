@@ -45,7 +45,8 @@ private:
 	void check_id_in_read();
 	void check_id_in_assign();
 	void check_op();
-	void check_unary();
+	void check_not();
+	void check_unary_p_m();
 	
 	Scanner scan;
 	Lex current_lex;

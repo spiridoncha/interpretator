@@ -724,3 +724,15 @@ void Parser::check_id_in_assign()
 		id.put_assign();
 	}
 }
+
+void Parser::check_op()
+{
+}
+
+void Parser::check_not()
+{
+}
+
+void Parser::check_unary_p_m()
+{
+}
