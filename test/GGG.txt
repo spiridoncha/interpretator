@@ -1,0 +1,15 @@
+program
+{
+	int a,b=4,c=2,i;
+	bool u;
+	for(i=0;i<10;i=i+1)
+	{
+		write(i);
+		a = b = 2;
+		while (a < 5)
+		{
+			a = a + 1;
+		}
+	}
+	read(u);
+}

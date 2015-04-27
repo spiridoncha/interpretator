@@ -528,7 +528,7 @@ void Parser::Expression()
 	//TODO
 	if (current_type_of_lex == LEX_ID_EXPR)
 	{
-		check_id();
+		check_id_in_assign();
 		get_lex();	
 		while (current_type_of_lex == LEX_ASSIGN)
 		{
