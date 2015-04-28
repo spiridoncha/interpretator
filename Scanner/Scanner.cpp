@@ -18,6 +18,7 @@ Lex Scanner::get_lex()
 	int d, j;
 	Current_State = H;
 	ret = next;
+	prev_number_str = current_number_str;
 	id_expr = false;
 	do
 	{
