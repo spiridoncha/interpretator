@@ -1,0 +1,3 @@
+WARNING: variable a don't assign in str: 5
+WARNING: variable a don't assign in str: 5
+Semantic_Error: in str: 5 : expected bool expression
