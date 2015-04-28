@@ -1,0 +1,8 @@
+program
+{
+	int a = 3;
+	while (a<4){
+		write(a);
+		a = a + 1;
+	}
+}

@@ -1,6 +1,5 @@
-import os
 import commands
-import filecmp
+import difflib
 
 path = 'test/'
 tmp = 'tmp.txt'
@@ -10,7 +9,9 @@ for f in files:
         tmp_file.write(commands.getoutput('./eduLang '+f))
     with open(tmp, 'r') as tmp_file:
         with open(f+'_res', 'r') as fl:
-            if tmp_file.readlines() == fl.readlines():
+            tm = map(lambda x:x.rstrip(), tmp_file.readlines())
+            fl1 = map(lambda x:x.rstrip(), fl.readlines())
+            if tm == fl1:
                 print 'O.K. in ' + f
             else:
                 print 'Problem in ' + f
