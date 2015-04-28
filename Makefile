@@ -45,6 +45,10 @@ Parser.o: Parser.cpp Parser.h
 run: build
 	./eduLang test/qqq.txt
 
+.PHONY : test tests.py
+test: build
+	python tests.py
+
 .PHONY : valg
 valg: build
 	valgrind ./eduLang test/qqq.txt
