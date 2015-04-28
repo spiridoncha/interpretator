@@ -8,8 +8,10 @@ files = filter(lambda x:x[-4:] != '_res', map(lambda x:path+x, (commands.getoutp
 for f in files:
     with open(tmp, 'w') as tmp_file:
         tmp_file.write(commands.getoutput('./eduLang '+f))
-    if filecmp.cmp(tmp, f+'_res'):
-        print 'O.K. in ' + f
-    else:
-        print 'Problem in ' + f
+    with open(tmp, 'r') as tmp_file:
+        with open(f+'_res', 'r') as fl:
+            if tmp_file.readlines() == fl.readlines():
+                print 'O.K. in ' + f
+            else:
+                print 'Problem in ' + f
 commands.getoutput('rm '+tmp)
