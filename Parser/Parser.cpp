@@ -139,7 +139,7 @@ void Parser::Description_int()
 		{
 			assign_in_description(id);
 			get_lex();
-			if (current_type_of_lex == LEX_PLUS || current_type_of_lex == LEX_MINUS)
+			if (current_type_of_lex == LEX_UNARYPLUS || current_type_of_lex == LEX_UNARYMINUS)
 			{
 				//TODO
 				get_lex();
