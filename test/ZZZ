@@ -1,0 +1,9 @@
+program
+{
+	int aaaaaaaaadasdasdasdas = 4;
+	int a = 3;
+	if (a > 4)
+		write(a);
+	else
+		read(a);
+}
