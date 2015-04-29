@@ -51,7 +51,7 @@ void Parser::Program1()
 void Parser::Descriptions_And_Operators()
 {
 	Descriptions();
-	Operators();
+	Operators(false);
 }
 
 void Parser::Descriptions()
@@ -220,27 +220,27 @@ void Parser::Description_bool()
 	}
 
 }
-void Parser::Operators()
+void Parser::Operators(bool loop)
 {
-	if (!Operator())
+	if (!Operator(loop))
 	{
 		return;
 	}
 	while (true)
 	{
-		if (!Operator())
+		if (!Operator(loop))
 		{
 			break;
 		}
 	}
 }
 
-void Parser::Begin_End()
+void Parser::Begin_End(bool loop)
 {
 	if (current_type_of_lex == LEX_BEGIN)
 	{
 		get_lex();
-		Operators();
+		Operators(loop);
 		if (current_type_of_lex == LEX_END)
 		{
 			get_lex();
@@ -253,14 +253,14 @@ void Parser::Begin_End()
 	else
 	{
 		//TODO
-		if (!Operator())
+		if (!Operator(loop))
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("operator"));
 		}
 	}
 }
 
-bool Parser::Operator()
+bool Parser::Operator(bool loop)
 {
 	//TODO
 	if (current_type_of_lex == LEX_IF)
@@ -276,12 +276,12 @@ bool Parser::Operator()
 			{
 				//TODO
 				get_lex();
-				Begin_End();
+				Begin_End(false);
 				if (current_type_of_lex == LEX_ELSE)
 				{
 					//TODO
 					get_lex();
-					Begin_End();
+					Begin_End(false);
 				}
 			}
 			else
@@ -307,7 +307,7 @@ bool Parser::Operator()
 			{
 				//TODO
 				get_lex();
-				Begin_End();
+				Begin_End(true);
 			}
 			else
 			{
@@ -395,7 +395,7 @@ bool Parser::Operator()
 	else if (current_type_of_lex == LEX_DO)
 	{
 		get_lex();
-		Begin_End();
+		Begin_End(true);
 		if (current_type_of_lex == LEX_WHILE)
 		{
 			get_lex();
@@ -464,6 +464,36 @@ bool Parser::Operator()
 		}
 		return true;
 	}
+	else if (current_type_of_lex == LEX_BREAK)
+	{
+		if (!loop)
+		{
+			throw Semantic_Error_Loop(scan.get_current_number_str(), String("break"));
+		}
+		//TODO
+		get_lex();
+		if (current_type_of_lex != LEX_SEMICOLON)
+		{
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String(";"));
+		}
+		get_lex();
+		return true;
+	}
+	else if (current_type_of_lex == LEX_CONTINUE)
+	{
+		//TODO
+		if (!loop)
+		{
+			throw Semantic_Error_Loop(scan.get_current_number_str(), String("continue"));
+		}
+		get_lex();
+		if (current_type_of_lex != LEX_SEMICOLON)
+		{
+			throw Syntax_Error_Expected(scan.get_current_number_str(), String(";"));
+		}
+		get_lex();
+		return true;
+	}
 	else
 	{
 		return false;
@@ -503,7 +533,7 @@ void Parser::For_In_Parens()
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("')'"));
 		}
-		Begin_End();
+		Begin_End(true);
 	}
 	else
 	{

@@ -25,9 +25,9 @@ private:
 	void Description_int();
 	void Description_string();
 	void Description_bool();
-	void Operators();
-	bool Operator();
-	void Begin_End();
+	void Operators(bool);
+	bool Operator(bool);
+	void Begin_End(bool);
 	void Sequence_Of_Expressions();
 	void Expression();
 	void Expression1();

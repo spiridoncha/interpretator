@@ -1,10 +1,10 @@
 #include "Scanner.h"
-int Scanner::look(const char *buf, const char *list[]) const
+int Scanner::look(const char *id, const char *list[]) const
 {
 	int i = 0;
 	while(list[i])
 	{
-		if (!strcmp(buf, list[i]))
+		if (!strcmp(id, list[i]))
 		{
 			return i;
 		}
@@ -128,7 +128,6 @@ Lex Scanner::get_lex()
 							return Lex(LEX_ID_EXPR, ret.get_value_int());
 						}
 						return ret;
-
 					}
 				}
 				break;
@@ -324,6 +323,8 @@ const char* Scanner::TW[] =
 	"while",
 	"for",
 	"write",
+	"break",
+	"continue",
 	nullptr
 };
 const char* Scanner::TD[] =
@@ -369,6 +370,8 @@ type_of_lex Scanner::words[] =
 	LEX_WHILE,
 	LEX_FOR,
 	LEX_WRITE,
+	LEX_BREAK,
+	LEX_CONTINUE,
 	LEX_NULL
 };
 type_of_lex Scanner::delims[] =

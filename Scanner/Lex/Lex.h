@@ -49,7 +49,9 @@ enum type_of_lex
 	LEX_NEQ,
 	LEX_GEQ,
 	LEX_APOST,
-	LEX_ID_EXPR
+	LEX_ID_EXPR,
+	LEX_BREAK,
+	LEX_CONTINUE
 };
 
 class Lex

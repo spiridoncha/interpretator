@@ -1,0 +1,12 @@
+program
+{
+	int a=4;
+	string b = "SAdf";
+	while (a < 5)
+	{
+		a = a + 1;
+		break;
+		continue;
+		b = "qwert";
+	}
+}

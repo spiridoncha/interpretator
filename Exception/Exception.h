@@ -223,4 +223,20 @@ public:
 	}
 };
 
+class Semantic_Error_Loop : public Semantic_Error
+{
+	String word;
+public:
+	Semantic_Error_Loop(int n, const String &str) : Semantic_Error(n), word(str) {}
+	virtual String what() const throw()
+	{
+		String tmp("Semantic_Error: ");
+		tmp += String("in str: ");
+		tmp += String::int_to_str(get_n_str());
+		tmp += String(" : ");
+		tmp += String("'") + word + String("' ");
+		tmp += String("must be in loop");
+		return tmp;
+	}
+};
 #endif

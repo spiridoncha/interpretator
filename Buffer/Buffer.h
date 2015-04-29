@@ -8,8 +8,9 @@ class Buffer
 	int size;
 	void re_size();
 	Buffer(const Buffer&) {}
+	void operator=(const Buffer&) {}
 public:
-	Buffer(int s = 4) : real_size(0), size(s) { buf = new char[s]; }
+	Buffer() : real_size(0), size(10) { buf = new char[10]; }
 	~Buffer() { delete[] buf; }
 	void clear();
 	void add(int ch);
