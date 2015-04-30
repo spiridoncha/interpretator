@@ -1,7 +1,7 @@
 #include "Buffer.h"
 void Buffer::re_size()
 {
-	if (real_size == size)
+	if (real_size + 1 == size)
 	{
 		char *buf_new = new char[2*size];
 		for(int i = 0; i<size; ++i)
