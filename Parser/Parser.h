@@ -2,11 +2,12 @@
 #define PARSER_H
 #include "../Scanner/Scanner.h"
 #include "../Stack/Stack.h"
+#include "../Poliz/Poliz.h"
 #include <iostream>
 class Parser
 {
 public:
-	//Poliz prog;
+	Poliz prog;
 	explicit Parser(const char *program) : scan(program) {};
 	void analize();
 private:
