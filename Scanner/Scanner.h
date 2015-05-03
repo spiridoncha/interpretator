@@ -27,7 +27,7 @@ class Scanner
 	Lex next;
 public:
 	Lex get_lex();
-	Scanner(const char *program) : File(program)
+	Scanner(const char *program) : File(program), buf(TW, TD)
 	{
 		ret = Lex(LEX_NULL);
 		next = Lex(LEX_NULL);
