@@ -338,12 +338,12 @@ bool Parser::Operator(bool loop)
 			if (current_type_of_lex == LEX_ID)
 			{
 				check_id_in_read();
-				//TODO
+				prog.put_lex(Lex(POLIZ_ADDRESS, current_value_int_of_lex));
 				get_lex();
 				if (current_type_of_lex == LEX_RPAREN)
 				{
 					get_lex();
-					//TODO
+					prog.put_lex(Lex(LEX_READ));
 					if (current_type_of_lex == LEX_SEMICOLON)
 					{
 						get_lex();
