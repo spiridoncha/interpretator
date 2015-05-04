@@ -328,7 +328,7 @@ bool Parser::Operator(bool loop, int continue_point = 0)
 				Begin_End(true, place_0);
 				prog.put_lex(Lex(POLIZ_LABEL, place_0));
 				prog.put_lex(Lex(POLIZ_GO));
-				prog.put_lex(Lex(POLIZ_CONDITION_GO, prog.get_free()), place_1);
+				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_1);
 			}
 			else
 			{
@@ -512,7 +512,7 @@ bool Parser::Operator(bool loop, int continue_point = 0)
 		{
 			throw Semantic_Error_Loop(scan.get_current_number_str(), String("continue"));
 		}
-		prog.put_lex(Lex(POLIZ_LABEL), continue_point);
+		prog.put_lex(Lex(POLIZ_LABEL, continue_point));
 		prog.put_lex(Lex(POLIZ_GO));
 		get_lex();
 		if (current_type_of_lex != LEX_SEMICOLON)
