@@ -409,6 +409,7 @@ bool Parser::Operator(bool loop)
 	else if (current_type_of_lex == LEX_DO)
 	{
 		get_lex();
+		place_0 = prog.get_free();
 		Begin_End(true);
 		if (current_type_of_lex == LEX_WHILE)
 		{
@@ -418,6 +419,12 @@ bool Parser::Operator(bool loop)
 				get_lex();
 				Expression();
 				eq_bool();
+				place_1 = prog.get_free();
+				prog.blank();
+				prog.put_lex(Lex(POLIZ_CONDITION_GO));
+				prog.put_lex(Lex(POLIZ_LABEL, place_0));
+				prog.put_lex(Lex(POLIZ_GO));
+				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_1);
 				if (current_type_of_lex == LEX_RPAREN)
 				{
 					get_lex();
