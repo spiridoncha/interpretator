@@ -310,13 +310,19 @@ bool Parser::Operator(bool loop)
 		if (current_type_of_lex == LEX_LPAREN)
 		{
 			get_lex();
+			place_0 = prog.get_free();
 			Expression();
 			eq_bool();
+			place_1 = prog.get_free();
+			prog.blank();
+			prog.put_lex(Lex(POLIZ_CONDITION_GO));
 			if (current_type_of_lex == LEX_RPAREN)
 			{
-				//TODO
 				get_lex();
 				Begin_End(true);
+				prog.put_lex(Lex(POLIZ_LABEL, place_0));
+				prog.put_lex(Lex(POLIZ_GO));
+				prog.put_lex(Lex(POLIZ_CONDITION_GO, prog.get_free()), place_1);
 			}
 			else
 			{
