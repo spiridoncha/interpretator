@@ -9,6 +9,7 @@ class Ident
 	type_of_lex type;
 	bool assign;
 	int value;
+	String str;
 	Ident(const Ident&) {}
 public:
 	Ident() : name(nullptr), declare(false), assign(false) {}
@@ -27,6 +28,8 @@ public:
 	bool get_assign() const { return assign; }
 	void put_assign() { assign = true; }
 	int get_value() const { return value; }
+	String get_value_str() const { return str; }
 	void put_value(int v) { value = v; }
+	void put_value(String v) { str = v; }
 };
 #endif

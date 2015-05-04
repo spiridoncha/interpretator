@@ -5,7 +5,6 @@ void Parser::analize()
 {
 	get_lex();
 	Program();
-	//TODO
 	prog.out();
 	std::cout << "yeah!!!" << std::endl;
 }
@@ -57,7 +56,6 @@ void Parser::Descriptions_And_Operators()
 
 void Parser::Descriptions()
 {
-	//TODO
 	if (Description())
 	{
 		if (current_type_of_lex != LEX_SEMICOLON)
@@ -133,7 +131,9 @@ void Parser::Description_int()
 {
 	if (current_type_of_lex == LEX_ID || current_type_of_lex == LEX_ID_EXPR)
 	{
+		bool minus = false;
 		int id = current_value_int_of_lex;
+		Ident& id_in_table = scan.get_TID()[id];
 		declare(LEX_INT);
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
@@ -142,12 +142,22 @@ void Parser::Description_int()
 			get_lex();
 			if (current_type_of_lex == LEX_UNARYPLUS || current_type_of_lex == LEX_UNARYMINUS)
 			{
-				//TODO
+				if (current_type_of_lex == LEX_UNARYMINUS)
+				{
+					minus = true;
+				}
 				get_lex();
 			}
 			if (current_type_of_lex == LEX_NUM)
 			{
-				//TODO
+				if (minus)
+				{
+					id_in_table.put_value(-current_value_int_of_lex);
+				}
+				else
+				{
+					id_in_table.put_value(current_value_int_of_lex);
+				}
 				get_lex();
 			}
 			else
@@ -167,8 +177,8 @@ void Parser::Description_string()
 	if (current_type_of_lex == LEX_ID || current_type_of_lex == LEX_ID_EXPR)
 	{
 		int id = current_value_int_of_lex;
+		Ident& id_in_table = scan.get_TID()[id];
 		declare(LEX_STRING);
-		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
@@ -176,7 +186,7 @@ void Parser::Description_string()
 			get_lex();
 			if (current_type_of_lex == LEX_CONST_STRING)
 			{
-				//TODO
+				id_in_table.put_value(current_value_str_of_lex);
 				get_lex();
 			}
 			else
@@ -197,8 +207,8 @@ void Parser::Description_bool()
 	if (current_type_of_lex == LEX_ID || current_type_of_lex == LEX_ID_EXPR)
 	{
 		int id = current_value_int_of_lex;
+		Ident& id_in_table = scan.get_TID()[id];
 		declare(LEX_BOOL);
-		//TODO
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
@@ -206,7 +216,7 @@ void Parser::Description_bool()
 			get_lex();
 			if (current_type_of_lex == LEX_TRUE || current_type_of_lex == LEX_FALSE)
 			{
-				//TODO
+				id_in_table.put_value(current_value_int_of_lex);
 				get_lex();
 			}
 			else

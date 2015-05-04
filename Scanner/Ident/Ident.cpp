@@ -10,5 +10,6 @@ Ident& Ident::operator=(const Ident &Id)
 	declare = Id.declare;
 	type = Id.type;
 	value = Id.value;
+	str = Id.str;
 	return *this;
 }
