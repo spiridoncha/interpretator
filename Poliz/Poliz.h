@@ -8,10 +8,10 @@ class Poliz
 public:
 	Poliz() : full_size(10), real_size(0), free(0) { prog = new Lex[full_size]; }
 	~Poliz() { delete[] prog; }
-	void put_lex(Lex lex) { resize(); prog[free++] = lex; }
+	void put_lex(Lex lex) { resize(); prog[free++] = lex; ++real_size; }
 	void put_lex(Lex lex, int pos) { resize(); prog[pos] = lex; }
 	void blank() { resize(); ++free; /*TODO*/ ++real_size;};
-	int get_free() { return free; }
+	int get_free() const { return free; }
 	void out();
 	Lex& operator[](int i)
 	{

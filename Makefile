@@ -8,7 +8,7 @@ clean:
 	rm -f *.o eduLang
 
 .PHONY : build
-build: main.cpp $(LIBS)
+build: main.cpp $(LIBS) Poliz.h
 	$(CXX) $(CXXFLAGS) $^ -o eduLang
 
 Scanner.o: Scanner.cpp Scanner.h
@@ -38,7 +38,7 @@ String.o: String.cpp String.h
 Stack.o: Stack.cpp Stack.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-Parser.o: Parser.cpp Parser.h
+Parser.o: Parser.cpp Parser.h Poliz.cpp Poliz.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 Poliz.o: Poliz.cpp Poliz.h

@@ -833,6 +833,7 @@ void Parser::check_op()
 	else
 		throw Semantic_Error_Operation_Do_Not_Exist(scan.get_current_number_str());
 	st_lex.push(ret);
+	prog.put_lex(Lex(aOPb));
 }
 
 void Parser::check_not()
