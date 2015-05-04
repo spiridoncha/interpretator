@@ -12,9 +12,9 @@ public:
 	void push(const T&);
 	T pop();
 	bool is_Empty() const { return real_size == 0;}
+	Stack(const Stack&);
+	void operator=(const Stack&);
 private:
-	Stack(const Stack&) {}
-	void operator=(const Stack&) {}
 	void resize();
 	T* p;
 	int size;

@@ -25,6 +25,33 @@ Stack<T>::Stack()
 }
 
 template <typename T>
+Stack<T>::Stack(const Stack &other)
+{
+	p = new T[size=other.size];
+	real_size = other.real_size;
+	for(int i=0;i<real_size;++i)
+	{
+		p[i] = other.p[i];
+	}
+}
+
+template <typename T>
+void Stack<T>::operator=(const Stack &other)
+{
+	if (this != &other)
+	{
+		p_new = new T[size=other.size];
+		real_size = other.real_size;
+		for(int i=0;i<real_size;++i)
+		{
+			p_new[i] = other.p[i];
+		}
+		delete[] p;
+		p = p_new;
+	}
+}
+
+template <typename T>
 void Stack<T>::push(const T &elem)
 {
 	resize();
