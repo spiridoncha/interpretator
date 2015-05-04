@@ -51,7 +51,7 @@ void Parser::Program1()
 void Parser::Descriptions_And_Operators()
 {
 	Descriptions();
-	Operators(false);
+	Operators(false, 0);
 }
 
 void Parser::Descriptions()
@@ -229,29 +229,29 @@ void Parser::Description_bool()
 	{
 		throw Syntax_Error_Expected(scan.get_current_number_str(), String("identeficator"));
 	}
-
 }
-void Parser::Operators(bool loop)
+
+void Parser::Operators(bool loop, int continue_point = 0)
 {
-	if (!Operator(loop))
+	if (!Operator(loop, continue_point))
 	{
 		return;
 	}
 	while (true)
 	{
-		if (!Operator(loop))
+		if (!Operator(loop, continue_point))
 		{
 			break;
 		}
 	}
 }
 
-void Parser::Begin_End(bool loop)
+void Parser::Begin_End(bool loop, int continue_point = 0)
 {
 	if (current_type_of_lex == LEX_BEGIN)
 	{
 		get_lex();
-		Operators(loop);
+		Operators(loop, continue_point);
 		if (current_type_of_lex == LEX_END)
 		{
 			get_lex();
@@ -263,14 +263,14 @@ void Parser::Begin_End(bool loop)
 	}
 	else
 	{
-		if (!Operator(loop))
+		if (!Operator(loop, continue_point))
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("operator"));
 		}
 	}
 }
 
-bool Parser::Operator(bool loop)
+bool Parser::Operator(bool loop, int continue_point = 0)
 {
 	int place_0, place_1, place_2, place_3;
 	if (current_type_of_lex == LEX_IF)
