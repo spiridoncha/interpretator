@@ -287,7 +287,14 @@ bool Parser::Operator(bool loop, int continue_point = 0)
 			if (current_type_of_lex == LEX_RPAREN)
 			{
 				get_lex();
-				Begin_End(false);
+				if (loop)
+				{
+					Begin_End(true, continue_point);
+				}
+				else
+				{
+					Begin_End(false);
+				}
 				place_3 = prog.get_free();
 				prog.blank();
 				prog.put_lex(Lex(POLIZ_GO));
@@ -295,7 +302,14 @@ bool Parser::Operator(bool loop, int continue_point = 0)
 				if (current_type_of_lex == LEX_ELSE)
 				{
 					get_lex();
-					Begin_End(false);
+					if (loop)
+					{
+						Begin_End(true, continue_point);
+					}
+					else
+					{
+						Begin_End(false);
+					}
 					prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
 				}
 			}
