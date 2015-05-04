@@ -13,3 +13,12 @@ void Poliz::resize()
 		prog = new_prog;
 	}
 }
+
+void Poliz::out()
+{
+	for(int i=0;i<real_size;++i)
+	{	
+		std::cout << prog[i] << ' ';
+	}
+	std::cout << std::endl;
+}

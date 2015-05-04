@@ -1,4 +1,5 @@
 #include "../Scanner/Lex/Lex.h"
+#include <iostream>
 class Poliz
 {
 public:
@@ -8,6 +9,7 @@ public:
 	void put_lex(Lex lex, int pos) { prog[pos] = lex; }
 	void blank() { resize(); ++free; /*TODO*/ ++real_size;};
 	int get_free() { return free; }
+	void out();
 	Lex& operator[](int i)
 	{
 		//
