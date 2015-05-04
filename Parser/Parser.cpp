@@ -655,9 +655,10 @@ void Parser::Expression6()
 	{
 		//TODO
 		//std::cout << "1" << scan.get_current_number_str();
+		type_of_lex type_lex = current_type_of_lex;
 		get_lex();
 		Expression6();
-		check_unary_p_m();
+		check_unary_p_m(type_lex);
 	}
 	else
 	{
@@ -845,7 +846,7 @@ void Parser::check_not()
 	}
 }
 
-void Parser::check_unary_p_m()
+void Parser::check_unary_p_m(type_of_lex a)
 {
 	if (st_lex.pop() != LEX_INT)
 	{

@@ -49,7 +49,7 @@ private:
 	void eq_bool();
 	void check_op();
 	void check_not();
-	void check_unary_p_m();
+	void check_unary_p_m(type_of_lex);
 	
 	Scanner scan;
 	Lex current_lex;
