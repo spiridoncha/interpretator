@@ -560,6 +560,7 @@ void Parser::Expression()
 	if (current_type_of_lex == LEX_ID_EXPR)
 	{
 		check_id_in_assign();
+		prog.put_lex(Lex(POLIZ_ADDRESS, current_value_int_of_lex));
 		get_lex();	
 		while (current_type_of_lex == LEX_ASSIGN)
 		{
@@ -647,15 +648,12 @@ void Parser::Expression6()
 {
 	if (current_type_of_lex == LEX_NOT)
 	{
-		//TODO
 		get_lex();
 		Expression6();
 		check_not();
 	}
 	else if (current_type_of_lex == LEX_UNARYMINUS || current_type_of_lex == LEX_UNARYPLUS)
 	{
-		//TODO
-		//std::cout << "1" << scan.get_current_number_str();
 		type_of_lex type_lex = current_type_of_lex;
 		get_lex();
 		Expression6();
@@ -672,31 +670,31 @@ void Parser::Expression_Easy()
 	if (current_type_of_lex == LEX_ID)
 	{
 		check_id();
-		//TODO
+		prog.put_lex(Lex(LEX_ID, current_value_int_of_lex));
 		get_lex();
 	}
 	else if (current_type_of_lex == LEX_NUM)
 	{
 		st_lex.push(LEX_INT);
-		//TODO
+		prog.put_lex(current_lex);
 		get_lex();
 	}
 	else if (current_type_of_lex == LEX_CONST_STRING)
 	{
 		st_lex.push(LEX_STRING);
-		//TODO
+		prog.put_lex(current_lex);
 		get_lex();
 	}
 	else if (current_type_of_lex == LEX_TRUE)
 	{
 		st_lex.push(LEX_BOOL);
-		//TODO
+		prog.put_lex(Lex(LEX_TRUE, 1));
 		get_lex();
 	}
 	else if (current_type_of_lex == LEX_FALSE)
 	{
 		st_lex.push(LEX_BOOL);
-		//TODO
+		prog.put_lex(Lex(LEX_FALSE, 0));
 		get_lex();
 	}
 	else if (current_type_of_lex == LEX_LPAREN)
