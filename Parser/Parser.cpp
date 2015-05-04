@@ -375,12 +375,11 @@ bool Parser::Operator(bool loop)
 		if (current_type_of_lex == LEX_LPAREN)
 		{
 			get_lex();
-			//TODO TODO
 			Sequence_Of_Expressions();
 			if (current_type_of_lex == LEX_RPAREN)
 			{
 				get_lex();
-				//TODO
+				prog.put_lex(Lex(LEX_WRITE));
 				if (current_type_of_lex == LEX_SEMICOLON)
 				{
 					get_lex();
@@ -556,9 +555,9 @@ void Parser::Sequence_Of_Expressions()
 	//TODO
 	while (current_type_of_lex == LEX_COMMA)
 	{
-		//TODO
 		get_lex();
 		Expression();
+		prog.put_lex(Lex(POLIZ_SEQ_WRITE));
 	}
 }
 

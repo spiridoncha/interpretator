@@ -1,9 +1,10 @@
 program
 {
 	int a=4;
+	int b=3;
 	if (a % 2 == 1)
 	{
-		write(a);
+		write(a, b);
 	}
 	else
 	{
