@@ -263,7 +263,6 @@ void Parser::Begin_End(bool loop)
 	}
 	else
 	{
-		//TODO
 		if (!Operator(loop))
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("operator"));
@@ -273,7 +272,6 @@ void Parser::Begin_End(bool loop)
 
 bool Parser::Operator(bool loop)
 {
-	//TODO
 	int place_0, place_1, place_2, place_3;
 	if (current_type_of_lex == LEX_IF)
 	{
@@ -288,7 +286,6 @@ bool Parser::Operator(bool loop)
 			prog.put_lex(Lex(POLIZ_CONDITION_GO));
 			if (current_type_of_lex == LEX_RPAREN)
 			{
-				//TODO
 				get_lex();
 				Begin_End(false);
 				place_3 = prog.get_free();
@@ -297,7 +294,6 @@ bool Parser::Operator(bool loop)
 				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_2);
 				if (current_type_of_lex == LEX_ELSE)
 				{
-					//TODO
 					get_lex();
 					Begin_End(false);
 					prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
@@ -533,6 +529,7 @@ bool Parser::Operator(bool loop)
 
 void Parser::For_In_Parens()
 {
+	//TODO
 	if (current_type_of_lex == LEX_LPAREN)
 	{
 		get_lex();
