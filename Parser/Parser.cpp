@@ -465,17 +465,17 @@ bool Parser::Operator(bool loop)
 		For_In_Parens();
 		return true;
 	}
-	else if (current_type_of_lex == LEX_ID || current_type_of_lex == LEX_ID_EXPR)
+	else if (current_type_of_lex == LEX_ID_EXPR)
 	{
 		check_id_in_assign();
-		//TODO
+		prog.put_lex(Lex(POLIZ_ADDRESS, current_value_int_of_lex));
 		get_lex();
 		if (current_type_of_lex == LEX_ASSIGN)
 		{
 			get_lex();
 			Expression();
 			eq_type();
-			//TODO
+			prog.put_lex(Lex(LEX_ASSIGN));
 			if (current_type_of_lex == LEX_SEMICOLON)
 			{
 				get_lex();
