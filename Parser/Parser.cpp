@@ -264,6 +264,7 @@ void Parser::Begin_End(bool loop)
 bool Parser::Operator(bool loop)
 {
 	//TODO
+	int place_0, place_1, place_2, place_3;
 	if (current_type_of_lex == LEX_IF)
 	{
 		get_lex();
@@ -272,17 +273,24 @@ bool Parser::Operator(bool loop)
 			get_lex();
 			Expression();
 			eq_bool();
-			//TODO
+			place_2 = prog.get_free();
+			prog.blank();
+			prog.put_lex(Lex(POLIZ_CONDITION_GO));
 			if (current_type_of_lex == LEX_RPAREN)
 			{
 				//TODO
 				get_lex();
 				Begin_End(false);
+				place_3 = prog.get_free();
+				prog.blank();
+				prog.put_lex(Lex(POLIZ_GO));
+				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_2);
 				if (current_type_of_lex == LEX_ELSE)
 				{
 					//TODO
 					get_lex();
 					Begin_End(false);
+					prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
 				}
 			}
 			else
