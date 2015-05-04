@@ -6,6 +6,7 @@ void Parser::analize()
 	get_lex();
 	Program();
 	//TODO
+	prog.out();
 	std::cout << "yeah!!!" << std::endl;
 }
 
@@ -844,6 +845,7 @@ void Parser::check_not()
 	{
 		st_lex.push(LEX_BOOL);
 	}
+	prog.put_lex(Lex(LEX_NOT));
 }
 
 void Parser::check_unary_p_m(type_of_lex a)
@@ -856,4 +858,5 @@ void Parser::check_unary_p_m(type_of_lex a)
 	{
 		st_lex.push(LEX_INT);
 	}
+	prog.put_lex(Lex(a));
 }
