@@ -6,7 +6,7 @@ public:
 	~Poliz() { delete[] prog; }
 	void put_lex(Lex lex) { resize(); prog[free++] = lex; }
 	void put_lex(Lex lex, int pos) { prog[pos] = lex; }
-	void blank() { resize(); ++free; };
+	void blank() { resize(); ++free; /*TODO*/ ++real_size;};
 	int get_free() { return free; }
 	Lex& operator[](int i)
 	{
