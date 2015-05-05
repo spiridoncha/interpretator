@@ -546,11 +546,18 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 
 void Parser::For_In_Parens()
 {
+	int place_0, place_1, place_2, place_3;
 	//TODO
 	if (current_type_of_lex == LEX_LPAREN)
 	{
 		get_lex();
-		Expression();
+		if (current_type_of_lex == LEX_SEMICOLON)
+		{
+		}
+		else
+		{
+			Expression();
+		}
 		if (current_type_of_lex == LEX_SEMICOLON)
 		{
 			get_lex();
@@ -559,8 +566,14 @@ void Parser::For_In_Parens()
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 		}
-		Expression();
-		eq_bool();
+		if (current_type_of_lex == LEX_SEMICOLON)
+		{
+		}
+		else
+		{
+			Expression();
+			eq_bool();
+		}
 		if (current_type_of_lex == LEX_SEMICOLON)
 		{
 			get_lex();
@@ -569,7 +582,13 @@ void Parser::For_In_Parens()
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 		}
-		Expression();
+		if (current_type_of_lex == LEX_RPAREN)
+		{
+		}
+		else
+		{
+			Expression();
+		}
 		if (current_type_of_lex == LEX_RPAREN)
 		{
 			get_lex();
