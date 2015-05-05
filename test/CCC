@@ -9,7 +9,7 @@ program
 		}
 		else
 		{
-			a = a + 1;
+			break;
 		}
 	}
 }

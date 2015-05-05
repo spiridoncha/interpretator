@@ -287,7 +287,7 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 			if (current_type_of_lex == LEX_RPAREN)
 			{
 				get_lex();
-				Begin_End(loop, continue_point);
+				Begin_End(loop, continue_point, break_point);
 				place_3 = prog.get_free();
 				prog.blank();
 				prog.put_lex(Lex(POLIZ_GO));
@@ -295,7 +295,7 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 				if (current_type_of_lex == LEX_ELSE)
 				{
 					get_lex();
-					Begin_End(loop, continue_point);
+					Begin_End(loop, continue_point, break_point);
 				}
 				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
 			}
@@ -505,14 +505,13 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 		{
 			throw Semantic_Error_Loop(scan.get_current_number_str(), String("break"));
 		}
-		//TODO
+		prog.put_lex(Lex(POLIZ_LABEL, break_point));
+		prog.put_lex(Lex(POLIZ_GO));
 		get_lex();
 		if (current_type_of_lex != LEX_SEMICOLON)
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String(";"));
 		}
-		prog.put_lex(Lex(POLIZ_LABEL, break_point));
-		prog.put_lex(Lex(POLIZ_GO));
 		get_lex();
 		return true;
 	}
