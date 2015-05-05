@@ -589,7 +589,6 @@ void Parser::For_In_Parens()
 void Parser::Sequence_Of_Expressions()
 {
 	Expression();
-	//TODO
 	while (current_type_of_lex == LEX_COMMA)
 	{
 		get_lex();
@@ -600,7 +599,6 @@ void Parser::Sequence_Of_Expressions()
 
 void Parser::Expression()
 {
-	//TODO
 	if (current_type_of_lex == LEX_ID_EXPR)
 	{
 		check_id_in_assign();
@@ -608,7 +606,6 @@ void Parser::Expression()
 		get_lex();	
 		while (current_type_of_lex == LEX_ASSIGN)
 		{
-			//TODO
 			st_lex.push(current_type_of_lex);
 			get_lex();
 			Expression();
