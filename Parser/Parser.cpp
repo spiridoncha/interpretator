@@ -423,8 +423,14 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 	else if (current_type_of_lex == LEX_DO)
 	{
 		get_lex();
-		place_0 = prog.get_free();
-		Begin_End(true, place_0);
+		place_2 = prog.get_free();
+		prog.blank();
+		prog.put_lex(Lex(POLIZ_GO));
+		place_3 = prog.get_free();
+		prog.blank();
+		prog.put_lex(Lex(POLIZ_GO));
+		prog.put_lex(Lex(POLIZ_LABEL, place_0=prog.get_free()), place_2);
+		Begin_End(true, place_0, place_3);
 		if (current_type_of_lex == LEX_WHILE)
 		{
 			get_lex();
@@ -439,6 +445,7 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 				prog.put_lex(Lex(POLIZ_LABEL, place_0));
 				prog.put_lex(Lex(POLIZ_GO));
 				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_1);
+				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
 				if (current_type_of_lex == LEX_RPAREN)
 				{
 					get_lex();
