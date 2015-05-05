@@ -1,7 +1,7 @@
 program
 {
 	int a = 5;
-	for(;;)
+	for(a=0;;a = a + 1)
 	{
 	}
 }

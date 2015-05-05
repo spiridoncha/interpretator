@@ -546,11 +546,17 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 
 void Parser::For_In_Parens()
 {
-	int place_0, place_1, place_2, place_3;
-	//TODO
+	int place_0, place_1, place_2, place_3, place_4;
 	if (current_type_of_lex == LEX_LPAREN)
 	{
 		get_lex();
+		place_0 = prog.get_free();
+		prog.blank();
+		prog.put_lex(Lex(POLIZ_GO));
+		place_1 = prog.get_free();
+		prog.blank();
+		prog.put_lex(Lex(POLIZ_GO));
+		prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_0);
 		if (current_type_of_lex == LEX_SEMICOLON)
 		{
 		}
@@ -566,14 +572,21 @@ void Parser::For_In_Parens()
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 		}
+		place_2 = prog.get_free();
 		if (current_type_of_lex == LEX_SEMICOLON)
 		{
+			prog.put_lex(Lex(LEX_TRUE));
 		}
 		else
 		{
 			Expression();
 			eq_bool();
 		}
+		prog.put_lex(Lex(POLIZ_LABEL, place_1));
+		prog.put_lex(Lex(POLIZ_CONDITION_GO));
+		place_3 = prog.get_free();
+		prog.blank();
+		prog.put_lex(Lex(POLIZ_GO));
 		if (current_type_of_lex == LEX_SEMICOLON)
 		{
 			get_lex();
@@ -582,6 +595,7 @@ void Parser::For_In_Parens()
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("';'"));
 		}
+		place_4 = prog.get_free();
 		if (current_type_of_lex == LEX_RPAREN)
 		{
 		}
@@ -589,6 +603,8 @@ void Parser::For_In_Parens()
 		{
 			Expression();
 		}
+		prog.put_lex(Lex(POLIZ_LABEL, place_2));
+		prog.put_lex(Lex(POLIZ_GO));
 		if (current_type_of_lex == LEX_RPAREN)
 		{
 			get_lex();
@@ -597,7 +613,11 @@ void Parser::For_In_Parens()
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("')'"));
 		}
-		Begin_End(true);
+		prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
+		Begin_End(true, place_2, place_1);
+		prog.put_lex(Lex(POLIZ_LABEL, place_4));
+		prog.put_lex(Lex(POLIZ_GO));
+		prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_1);
 	}
 	else
 	{
