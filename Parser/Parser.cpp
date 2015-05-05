@@ -511,6 +511,8 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String(";"));
 		}
+		prog.put_lex(Lex(POLIZ_LABEL, break_point));
+		prog.put_lex(Lex(POLIZ_GO));
 		get_lex();
 		return true;
 	}
