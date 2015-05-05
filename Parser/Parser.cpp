@@ -310,8 +310,8 @@ bool Parser::Operator(bool loop, int continue_point = 0)
 					{
 						Begin_End(false);
 					}
-					prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
 				}
+				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
 			}
 			else
 			{
