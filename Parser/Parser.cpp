@@ -51,7 +51,7 @@ void Parser::Program1()
 void Parser::Descriptions_And_Operators()
 {
 	Descriptions();
-	Operators(false, 0);
+	Operators(false, 0, 0);
 }
 
 void Parser::Descriptions()
@@ -231,27 +231,27 @@ void Parser::Description_bool()
 	}
 }
 
-void Parser::Operators(bool loop, int continue_point = 0)
+void Parser::Operators(bool loop, int continue_point = 0, int break_point = 0)
 {
-	if (!Operator(loop, continue_point))
+	if (!Operator(loop, continue_point, break_point))
 	{
 		return;
 	}
 	while (true)
 	{
-		if (!Operator(loop, continue_point))
+		if (!Operator(loop, continue_point, break_point))
 		{
 			break;
 		}
 	}
 }
 
-void Parser::Begin_End(bool loop, int continue_point = 0)
+void Parser::Begin_End(bool loop, int continue_point = 0, int break_point = 0)
 {
 	if (current_type_of_lex == LEX_BEGIN)
 	{
 		get_lex();
-		Operators(loop, continue_point);
+		Operators(loop, continue_point, break_point);
 		if (current_type_of_lex == LEX_END)
 		{
 			get_lex();
@@ -263,14 +263,14 @@ void Parser::Begin_End(bool loop, int continue_point = 0)
 	}
 	else
 	{
-		if (!Operator(loop, continue_point))
+		if (!Operator(loop, continue_point, break_point))
 		{
 			throw Syntax_Error_Expected(scan.get_current_number_str(), String("operator"));
 		}
 	}
 }
 
-bool Parser::Operator(bool loop, int continue_point = 0)
+bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 {
 	int place_0, place_1, place_2, place_3;
 	if (current_type_of_lex == LEX_IF)
@@ -287,14 +287,7 @@ bool Parser::Operator(bool loop, int continue_point = 0)
 			if (current_type_of_lex == LEX_RPAREN)
 			{
 				get_lex();
-				if (loop)
-				{
-					Begin_End(true, continue_point);
-				}
-				else
-				{
-					Begin_End(false);
-				}
+				Begin_End(loop, continue_point);
 				place_3 = prog.get_free();
 				prog.blank();
 				prog.put_lex(Lex(POLIZ_GO));
@@ -302,14 +295,7 @@ bool Parser::Operator(bool loop, int continue_point = 0)
 				if (current_type_of_lex == LEX_ELSE)
 				{
 					get_lex();
-					if (loop)
-					{
-						Begin_End(true, continue_point);
-					}
-					else
-					{
-						Begin_End(false);
-					}
+					Begin_End(loop, continue_point);
 				}
 				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
 			}
@@ -326,6 +312,13 @@ bool Parser::Operator(bool loop, int continue_point = 0)
 	}
 	else if (current_type_of_lex == LEX_WHILE)
 	{
+		place_2 = prog.get_free();
+		prog.blank();
+		prog.put_lex(Lex(POLIZ_GO));
+		place_3 = prog.get_free();
+		prog.blank();
+		prog.put_lex(Lex(POLIZ_GO));
+		prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_2);
 		get_lex();
 		if (current_type_of_lex == LEX_LPAREN)
 		{
@@ -339,10 +332,11 @@ bool Parser::Operator(bool loop, int continue_point = 0)
 			if (current_type_of_lex == LEX_RPAREN)
 			{
 				get_lex();
-				Begin_End(true, place_0);
+				Begin_End(true, place_0, place_3);
 				prog.put_lex(Lex(POLIZ_LABEL, place_0));
 				prog.put_lex(Lex(POLIZ_GO));
 				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_1);
+				prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_3);
 			}
 			else
 			{
