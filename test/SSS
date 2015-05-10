@@ -1,7 +1,15 @@
 program
 {
 	int a=1,b=5, c=5;
-	if (a=b=c+1)
+	if ((a=b=c+1) == 6)
 	{
+		write(a);
+		write(b);
+		write(c);
 	}
+	else
+	{
+		write("asdasd");
+	}
+	write("qwe");
 }

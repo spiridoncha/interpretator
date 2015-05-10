@@ -1,6 +1,7 @@
 program
 {
-	int a;
+	int a=0;
 	int b=4; int c;
 	c = a+b;
+	write(c);
 }

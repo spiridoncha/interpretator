@@ -4,5 +4,7 @@ program
 	if ((a = 10) == (c = b = b +5))
 	{
 		write(b);
+		write(a);
+		write(c+1);
 	}
 }

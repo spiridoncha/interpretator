@@ -6,7 +6,7 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 	Lex i, j;
 	while (index < size)
 	{
-		//args.out();
+	//	args.out();
 		elem = prog[index];
 		switch (elem.get_type())
 		{
@@ -20,9 +20,23 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				break;
 			case LEX_ID:
 				id = elem.get_value_int();
-				if (TID[id].get_assign())
+				i = Lex(LEX_NULL, TID[id].get_value());
+				i = i.put_value(TID[id].get_value_str());
+				if (!TID[id].get_assign())
 				{
-					args.push(elem);
+					i.put_value(0);
+				}
+				if (TID[id].get_type() == LEX_STRING)
+				{
+					args.push(i.put_type(LEX_CONST_STRING));
+				}
+				else if (TID[id].get_type() == LEX_INT)
+				{
+					args.push(i.put_type(LEX_NUM));
+				}
+				else
+				{
+					args.push(i.put_type(LEX_BOOL));
 				}
 				break;
 			case LEX_NOT:
@@ -40,7 +54,8 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				args.push(j.put_value(j.get_value_int() && i.get_value_int()));
 				break;
 			case POLIZ_GO:
-				index = args.pop().get_value_int() - 1;
+				i = args.pop();
+				index = i.get_value_int() - 1;
 				break;
 			case POLIZ_CONDITION_GO:
 				i = args.pop();
@@ -56,23 +71,20 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				i = args.pop();
 				switch (i.get_type())
 				{
-					case LEX_INT:
+					case LEX_NUM:
 						std::cout << i.get_value_int() << std::endl;
 						break;
-					case LEX_BOOL:
-						if (i.get_value_int())
-						{
-							std::cout << "True" << std::endl;
-						}
-						else
-						{
-							std::cout << "False" << std::endl;
-						}
+					case LEX_TRUE:
+						std::cout << "True" << std::endl;
 						break;
-					case LEX_STRING:
+					case LEX_FALSE:
+						std::cout << "False" << std::endl;
+						break;
+					case LEX_CONST_STRING:
 						std::cout << i.get_value_str() << std::endl;
 						break;
 					default:
+						std::cout << "lal" << std::endl;
 						break;
 				}
 				break;
@@ -83,7 +95,7 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				//TODO also for int
 				i = args.pop();
 				j = args.pop();
-				if (i.get_type() == LEX_STRING)
+				if (i.get_type() == LEX_CONST_STRING)
 				{
 					args.push(j.put_value(j.get_value_str() + i.get_value_str()));
 				}
@@ -115,33 +127,143 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				args.push(j.put_value(j.get_value_int() % i.get_value_int()));
 				break;	
 			case LEX_EQ:
-				//TODO also for int
-				args.push(args.pop() == args.pop());
+				i = args.pop();
+				j = args.pop();
+				if (i.get_type() == LEX_CONST_STRING)
+				{
+					if (j.get_value_str() == i.get_value_str())
+					{
+						args.push(Lex(LEX_TRUE, 1));
+					}
+					else
+					{
+						args.push(Lex(LEX_FALSE));
+					}
+				}
+				else
+				{
+					if (j.get_value_int() == i.get_value_int())
+					{
+						args.push(Lex(LEX_TRUE, 1));
+					}
+					else
+					{
+						args.push(Lex(LEX_FALSE));
+					}
+				}
 				break;	
 			case LEX_LSS:
-				//TODO
+				i = args.pop();
+				j = args.pop();
+				if (i.get_type() == LEX_CONST_STRING)
+				{
+					if (j.get_value_str() < i.get_value_str())
+					{
+						args.push(Lex(LEX_TRUE, 1));
+					}
+					else
+					{
+						args.push(Lex(LEX_FALSE));
+					}
+				}
+				else
+				{
+					if (j.get_value_int() < i.get_value_int())
+					{
+						args.push(Lex(LEX_TRUE, 1));
+					}
+					else
+					{
+						args.push(Lex(LEX_FALSE));
+					}
+				}
 				break;	
 			case LEX_GTR:
-				//TODO
+				i = args.pop();
+				j = args.pop();
+				if (i.get_type() == LEX_CONST_STRING)
+				{
+					if (j.get_value_str() > i.get_value_str())
+					{
+						args.push(Lex(LEX_TRUE, 1));
+					}
+					else
+					{
+						args.push(Lex(LEX_FALSE));
+					}
+				}
+				else
+				{
+					if (j.get_value_int() > i.get_value_int())
+					{
+						args.push(Lex(LEX_TRUE, 1));
+					}
+					else
+					{
+						args.push(Lex(LEX_FALSE));
+					}
+
+					args.push(j.put_value(j.get_value_int() == i.get_value_int()));
+				}
 				break;	
 			case LEX_LEQ:
 				i = args.pop();
-				args.push(args.pop() <= i);
+				j = args.pop();
+				args.push(j.put_value(j.get_value_int() <= i.get_value_int()));
+				if (j.get_value_int() <= i.get_value_int())
+				{
+					args.push(Lex(LEX_TRUE, 1));
+				}
+				else
+				{
+					args.push(Lex(LEX_FALSE));
+				}
 				break;	
 			case LEX_GEQ:
 				i = args.pop();
-				args.push(args.pop() >= i);
+				j = args.pop();
+				if (j.get_value_int() >= i.get_value_int())
+				{
+					args.push(Lex(LEX_TRUE, 1));
+				}
+				else
+				{
+					args.push(Lex(LEX_FALSE));
+				}
 				break;	
 			case LEX_NEQ:
-				//TODO
+				i = args.pop();
+				j = args.pop();
+				if (i.get_type() == LEX_CONST_STRING)
+				{
+					if (j.get_value_str() != i.get_value_str())
+					{
+						args.push(Lex(LEX_TRUE, 1));
+					}
+					else
+					{
+						args.push(Lex(LEX_FALSE));
+					}
+				}
+				else
+				{
+					if (j.get_value_int() != i.get_value_int())
+					{
+						args.push(Lex(LEX_TRUE, 1));
+					}
+					else
+					{
+						args.push(Lex(LEX_FALSE));
+					}
+				}
 				break;	
 			case LEX_ASSIGN:
 				i = args.pop();
 				j = args.pop();
-				//TODO this is also for int
-				TID[j].put_value(i);
-				TID[j].put_assign();
-				args.push(i);
+				TID[j.get_value_int()].put_value(i.get_value_int());
+				TID[j.get_value_int()].put_value(i.get_value_str());
+				TID[j.get_value_int()].put_assign();
+				args.push(i.put_type(LEX_ID));
 				break;	
 			default:
 				break;

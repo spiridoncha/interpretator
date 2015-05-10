@@ -107,3 +107,20 @@ std::ostream& operator<<(std::ostream &out, const String &st)
 	}
 	return out;
 }
+
+bool String::operator==(const String &other_str)
+{
+	return strcmp(str, other_str.str) == 0 ? true : false;
+}
+bool String::operator!=(const String &other_str)
+{
+	return not this->operator==(other_str);
+}
+bool String::operator<(const String &other_str)
+{
+	return strcmp(str, other_str.str) < 0 ? true : false;
+}
+bool String::operator>(const String &other_str)
+{
+	return strcmp(str, other_str.str) > 0 ? true : false;
+}

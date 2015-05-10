@@ -72,6 +72,7 @@ public:
 	type_of_lex get_type() const { return type_lex; }
 	Lex& put_value(int val) { value_lex = val; return *this; }
 	Lex& put_value(String val) { str = val; return *this; }
+	Lex& put_type(type_of_lex type) { type_lex = type; return *this; }
 	int get_value_int() const { return value_lex; }
 	String get_value_str() const { return str; }
 	friend std::ostream& operator<<(std::ostream &, Lex);

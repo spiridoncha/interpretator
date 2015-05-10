@@ -1,9 +1,12 @@
 program
 {
+	int n = 0;
 	string a = "1asdasd";
-	while (a == "sd")
+	while (a != "sd")
 	{
+		n = n + 1;
 		write(a);
-		write("asdasd");
+		if (n == 3)
+			a = "sd";
 	}
 }
