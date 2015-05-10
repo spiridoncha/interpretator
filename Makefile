@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++11
-VPATH = .:./Scanner:./Scanner/Lex:./Scanner/Ident:./Scanner/Table_Ident:./Wrap_File:./Buffer:./Exception:./String:./Stack:./Parser:./Poliz
-LIBS = Parser.o Scanner.o Lex.o Ident.o Table_Ident.o Wrap_File.o Buffer.o Exception.o String.o Stack.o Poliz.o
+VPATH = .:./Scanner:./Scanner/Lex:./Scanner/Ident:./Scanner/Table_Ident:./Wrap_File:./Buffer:./Exception:./String:./Stack:./Parser:./Poliz:./Exec:./Interpretator
+LIBS = Parser.o Scanner.o Lex.o Ident.o Table_Ident.o Wrap_File.o Buffer.o Exception.o String.o Stack.o Poliz.o Exec.o Interpretator.o
 
 .PHONY : clean
 clean:
@@ -42,6 +42,12 @@ Parser.o: Parser.cpp Parser.h Poliz.cpp Poliz.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 Poliz.o: Poliz.cpp Poliz.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+Exec.o: Exec.cpp Exec.h Parser.cpp Parser.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+Interpretator.o: Interpretator.cpp Interpretator.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 .PHONY : run

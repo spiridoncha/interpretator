@@ -17,6 +17,16 @@ void Stack<T>::resize()
 }
 
 template <typename T>
+void Stack<T>::out()
+{
+	for(int i = 0;i < real_size;++i)
+	{
+		std::cout << p[i] << " ";
+	}
+	std::cout << std::endl;
+}
+
+template <typename T>
 Stack<T>::Stack()
 {
 	size = 1;

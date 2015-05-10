@@ -8,6 +8,7 @@ class Stack
 public:
 	Stack();
 	~Stack() { delete[] p; }
+	void out();
 	void reset() { real_size = 0;}
 	void push(const T&);
 	T pop();

@@ -10,6 +10,7 @@ public:
 	Poliz prog;
 	explicit Parser(const char *program) : scan(program) {};
 	void analize();
+	Scanner& get_Scan() { return scan; }
 private:
 	void get_lex() 
 	{

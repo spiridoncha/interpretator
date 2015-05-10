@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Parser/Parser.h"
+#include "Interpretator/Interpretator.h"
 using namespace std;
 int main(int argc, char *argv[])
 {
@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
 		{
 			throw(Arguments_Error(argc));
 		}
-		Parser Pars(argv[1]);
-		Pars.analize();
+		Interpretator inter(argv[1]);
+		inter.interpretation();
 	}
 	catch (const Except &a)
 	{
