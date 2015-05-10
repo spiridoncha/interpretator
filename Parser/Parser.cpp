@@ -492,7 +492,6 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 			Expression();
 			eq_type();
 			prog.put_lex(Lex(LEX_ASSIGN));
-			prog.put_lex(Lex(POLIZ_POP));
 			if (current_type_of_lex == LEX_SEMICOLON)
 			{
 				get_lex();
@@ -914,10 +913,6 @@ void Parser::check_op()
 		throw Semantic_Error_Operation_Do_Not_Exist(scan.get_current_number_str());
 	st_lex.push(ret);
 	prog.put_lex(Lex(aOPb));
-	if (aOPb == LEX_ASSIGN)
-	{
-		prog.put_lex(Lex(POLIZ_POP));
-	}
 }
 
 void Parser::check_not()

@@ -10,6 +10,7 @@ class Buffer
 	Buffer(const Buffer&) {}
 	void operator=(const Buffer&) {}
 public:
+	Buffer() : real_size(0) { buf = new char[(size=4)+1]; }
 	Buffer(const char **table1, const char **table2) : real_size(0)
 	{
 		int i = 0;

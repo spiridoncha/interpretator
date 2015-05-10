@@ -1,6 +1,9 @@
 program
 {
-	int a = 4;
-	int b = 6;
+	string a = "Asda";
+	string b, c;
+	read(c);
+	read(a);
 	b = c + a;
+	write(b);
 }
