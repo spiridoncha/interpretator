@@ -6,7 +6,7 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 	Lex i, j;
 	while (index < size)
 	{
-	//	args.out();
+		args.out();
 		elem = prog[index];
 		switch (elem.get_type())
 		{
@@ -93,6 +93,21 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				break;
 			case LEX_READ:
 				//TODO
+				int val;
+				i = args.pop();
+				id = i.get_value_int();
+				std::cout << i;
+				if (TID[id].get_type() == LEX_INT)
+				{
+					std::cin >> val;
+					TID[id].put_assign();
+					TID[id].put_value(val);
+				}
+				else
+				{
+					std::cout << "Asdasd";
+					//TODO
+				}
 				break;
 			case LEX_PLUS:
 				//TODO also for int

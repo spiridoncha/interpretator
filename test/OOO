@@ -1,6 +1,9 @@
 program
 {
 	int a = 5;
-	int b = 4;
+	int b = 4, c;
+	read(a);
+	read(b);
 	c = a+ b;
+	write(c);
 }
