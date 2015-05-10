@@ -4,6 +4,7 @@
 #include "../Parser/Parser.h"
 #include "../Stack/Stack.h"
 #include "../Scanner/Table_Ident/Table_Ident.h"
+#include "../Scanner/Lex/Lex.h"
 #include "../String/String.h"
 #include <iostream>
 

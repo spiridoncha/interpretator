@@ -1,8 +1,9 @@
 #include "Exec.h"
 void Exec::exec(Poliz &prog, Table_Ident &TID)
 {
-	Stack<int> args;
-	int i, j, index = 0, size = prog.get_free();
+	Stack<Lex> args;
+	int index = 0, size = prog.get_free(), id;
+	Lex i, j;
 	while (index < size)
 	{
 		//args.out();
@@ -14,72 +15,104 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 			case LEX_NUM:
 			case POLIZ_ADDRESS:
 			case POLIZ_LABEL:
-				args.push(elem.get_value_int());
-				break;
 			case LEX_CONST_STRING:
-				//TODO
+				args.push(elem);
 				break;
 			case LEX_ID:
-				i = elem.get_value_int();
-				if (TID[i].get_assign())
+				id = elem.get_value_int();
+				if (TID[id].get_assign())
 				{
-					if (TID[i].get_type() == LEX_INT or TID[i].get_type() == LEX_BOOL)
-					{
-						args.push(TID[i].get_value());
-					}
-					else
-					{
-						//TODO
-					}
+					args.push(elem);
 				}
 				break;
 			case LEX_NOT:
-				args.push(!args.pop());
+				i = args.pop();
+				args.push(i.put_value(!(i.get_value_int())));
 				break;
 			case LEX_OR:
 				i = args.pop();
-				args.push(args.pop() || i);
+				j = args.pop();
+				args.push(j.put_value(j.get_value_int() || i.get_value_int()));
 				break;
 			case LEX_AND:
 				i = args.pop();
-				args.push(args.pop() && i);
+				j = args.pop();
+				args.push(j.put_value(j.get_value_int() && i.get_value_int()));
 				break;
 			case POLIZ_GO:
-				index = args.pop() - 1;
+				index = args.pop().get_value_int() - 1;
 				break;
 			case POLIZ_CONDITION_GO:
 				i = args.pop();
-				if (!args.pop())
+				if (!args.pop().get_value_int())
 				{
-					index = i - 1;
+					index = i.get_value_int() - 1;
 				}
 				break;
 			case POLIZ_POP:
 				//TODO???
 				break;
 			case LEX_WRITE:
-				std::cout << args.pop() << std::endl;
+				i = args.pop();
+				switch (i.get_type())
+				{
+					case LEX_INT:
+						std::cout << i.get_value_int() << std::endl;
+						break;
+					case LEX_BOOL:
+						if (i.get_value_int())
+						{
+							std::cout << "True" << std::endl;
+						}
+						else
+						{
+							std::cout << "False" << std::endl;
+						}
+						break;
+					case LEX_STRING:
+						std::cout << i.get_value_str() << std::endl;
+						break;
+					default:
+						break;
+				}
 				break;
 			case LEX_READ:
 				//TODO
 				break;
 			case LEX_PLUS:
 				//TODO also for int
-				args.push(args.pop() + args.pop());
+				i = args.pop();
+				j = args.pop();
+				if (i.get_type() == LEX_STRING)
+				{
+					args.push(j.put_value(j.get_value_str() + i.get_value_str()));
+				}
+				else
+				{
+					args.push(j.put_value(j.get_value_int() + i.get_value_int()));
+				}
 				break;
 			case LEX_MINUS:
-				args.push(args.pop() - args.pop());
+				i = args.pop();
+				j = args.pop();
+				args.push(j.put_value(j.get_value_int() - i.get_value_int()));
 				break;	
 			case LEX_TIMES:
-				args.push(args.pop() * args.pop());
+				i = args.pop();
+				j = args.pop();
+				args.push(j.put_value(j.get_value_int() * i.get_value_int()));
 				break;	
 			case LEX_SLASH:
-				args.push(args.pop() / args.pop());
-				//TODO except
+				//TODO
+				i = args.pop();
+				j = args.pop();
+				args.push(j.put_value(j.get_value_int() / i.get_value_int()));
 				break;	
 			case LEX_PERCENT:
-				args.push(args.pop() % args.pop());
-				//TODO except
+				//TODO
+				i = args.pop();
+				j = args.pop();
+				args.push(j.put_value(j.get_value_int() % i.get_value_int()));
 				break;	
 			case LEX_EQ:
 				//TODO also for int
@@ -110,6 +143,8 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				TID[j].put_assign();
 				args.push(i);
 				break;	
+			default:
+				break;
 		}
 		++index;
 	}

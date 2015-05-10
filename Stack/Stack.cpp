@@ -80,3 +80,4 @@ T Stack<T>::pop()
 
 template class Stack<int>;
 template class Stack<type_of_lex>;
+template class Stack<Lex>;

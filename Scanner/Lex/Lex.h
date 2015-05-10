@@ -70,6 +70,8 @@ public:
 	void operator=(const Lex &other) { type_lex = other.type_lex; value_lex = other.value_lex; str = other.str; }
 	Lex(const Lex &other) { type_lex = other.type_lex; value_lex = other.value_lex; str = other.str; }
 	type_of_lex get_type() const { return type_lex; }
+	Lex& put_value(int val) { value_lex = val; return *this; }
+	Lex& put_value(String val) { str = val; return *this; }
 	int get_value_int() const { return value_lex; }
 	String get_value_str() const { return str; }
 	friend std::ostream& operator<<(std::ostream &, Lex);
