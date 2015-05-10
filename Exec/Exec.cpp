@@ -83,6 +83,9 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 					case LEX_CONST_STRING:
 						std::cout << i.get_value_str() << std::endl;
 						break;
+					case LEX_BOOL:
+						std::cout << String(i.get_value_int() ? "True" : "False") << std::endl;
+						break;
 					default:
 						std::cout << "lal" << std::endl;
 						break;

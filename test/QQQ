@@ -3,6 +3,8 @@ program
 	bool a = true;
 	do
 	{
+		write(a);
 		break;
+		write(a);
 	}while (1<2);
 }
