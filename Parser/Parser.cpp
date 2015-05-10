@@ -429,7 +429,8 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 		place_3 = prog.get_free();
 		prog.blank();
 		prog.put_lex(Lex(POLIZ_GO));
-		prog.put_lex(Lex(POLIZ_LABEL, place_0=prog.get_free()), place_2);
+		prog.put_lex(Lex(POLIZ_LABEL, prog.get_free()), place_2);
+		place_0 = prog.get_free();
 		Begin_End(true, place_0, place_3);
 		if (current_type_of_lex == LEX_WHILE)
 		{

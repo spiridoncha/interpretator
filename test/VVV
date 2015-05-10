@@ -1,7 +1,9 @@
 program
 {
 	int a = 5;
+	string b = "23";
 	for(a=0;;a = a + 1)
 	{
+		write(a, b);
 	}
 }

@@ -1,0 +1,9 @@
+program
+{
+	string a = "1asdasd";
+	while (a == "sd")
+	{
+		write(a);
+		write("asdasd");
+	}
+}

@@ -15,7 +15,6 @@ public:
 	void out();
 	Lex& operator[](int i)
 	{
-		//
 		return prog[i];
 	}
 	
