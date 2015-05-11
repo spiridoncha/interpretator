@@ -239,4 +239,15 @@ public:
 		return tmp;
 	}
 };
+
+class Divide_Zero : public Except
+{
+public:
+	virtual String what() const throw()
+	{
+		String tmp("Runtime_Error: ");
+		tmp += String("zero division");
+		return tmp;
+	}
+};
 #endif

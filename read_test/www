@@ -1,0 +1,7 @@
+program
+{
+	int s;
+	read(s);
+	s = s/s;
+	write(s);
+}

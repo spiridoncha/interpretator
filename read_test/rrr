@@ -1,0 +1,9 @@
+program
+{
+	int a;
+	read(a);
+	while (a % 3 != 0)
+	{
+		read(a);
+	}
+}

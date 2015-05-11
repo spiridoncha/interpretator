@@ -1,0 +1,12 @@
+program
+{
+	int aaa, i=0;
+	while(i<10)
+	{
+		read(aaa);
+		i = i + 1;
+		if (aaa < 10)
+			continue;
+		write("lol");
+	}
+}

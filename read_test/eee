@@ -1,0 +1,9 @@
+program
+{
+	string str = "aaaa";
+	string a;
+	do
+	{
+		read(a);
+	} while(a > str);
+}

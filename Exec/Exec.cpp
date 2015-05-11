@@ -107,7 +107,6 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				}
 				break;
 			case LEX_READ:
-				//TODO
 				int c;
 				i = args.pop();
 				id = i.get_value_int();
@@ -153,15 +152,22 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				args.push(j.put_value(j.get_value_int() * i.get_value_int()));
 				break;	
 			case LEX_SLASH:
-				//TODO
 				i = args.pop();
 				j = args.pop();
+				if (!i.get_value_int())
+				{
+					throw Divide_Zero();
+				}
 				args.push(j.put_value(j.get_value_int() / i.get_value_int()));
 				break;	
 			case LEX_PERCENT:
-				//TODO
 				i = args.pop();
 				j = args.pop();
+				if (!i.get_value_int())
+				{
+					throw Divide_Zero();
+				}
+
 				args.push(j.put_value(j.get_value_int() % i.get_value_int()));
 				break;	
 			case LEX_EQ:

@@ -1,0 +1,16 @@
+program
+{
+	int n, i, j;
+	bool cond;
+	read(n);
+	write(2);
+	for(i=3;i<n;i=i+2)
+	{
+		for(j=2;j<i and (i%j != 0);j=j+1)
+		{}
+		if (i == j)
+		{
+			write(i);
+		}
+	}
+}
