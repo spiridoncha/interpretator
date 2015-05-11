@@ -6,7 +6,7 @@ void Parser::analize()
 	get_lex();
 	Program();
 	prog.out();
-	std::cout << "yeah!!!" << std::endl;
+	//std::cout << "yeah!!!" << std::endl;
 }
 
 void Parser::Program()

@@ -1,0 +1,10 @@
+program
+{
+	string str = "aaaaaaaaa";
+	string s ="";
+	while (s != str)
+	{
+		s = s + "aaa";
+		write(s);
+	}
+}

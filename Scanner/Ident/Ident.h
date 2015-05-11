@@ -30,6 +30,6 @@ public:
 	int get_value() const { return value; }
 	String get_value_str() const { return str; }
 	void put_value(int v) { value = v; }
-	void put_value(const String v) { str = v; }
+	void put_value(const String &v) { str = v; }
 };
 #endif

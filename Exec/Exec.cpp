@@ -2,11 +2,12 @@
 void Exec::exec(Poliz &prog, Table_Ident &TID)
 {
 	Stack<Lex> args;
+	Stack<Lex> write;
 	int index = 0, size = prog.get_free(), id;
 	Lex i, j;
 	while (index < size)
 	{
-	//	args.out();
+		//args.out();
 		elem = prog[index];
 		switch (elem.get_type())
 		{
@@ -20,12 +21,13 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				break;
 			case LEX_ID:
 				id = elem.get_value_int();
-				i = Lex(LEX_NULL, TID[id].get_value());
-				i = i.put_value(TID[id].get_value_str());
 				if (!TID[id].get_assign())
 				{
-					i.put_value(0);
+					TID[id].put_value(0);
+					TID[id].put_value(String(""));
 				}
+				i = Lex(LEX_NULL, TID[id].get_value());
+				i = i.put_value(TID[id].get_value_str());
 				if (TID[id].get_type() == LEX_STRING)
 				{
 					args.push(i.put_type(LEX_CONST_STRING));
@@ -64,30 +66,41 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 					index = i.get_value_int() - 1;
 				}
 				break;
+			case POLIZ_SEQ_WRITE:
+				write.push(args.pop());
+				write.push(args.pop());
+				break;
 			case LEX_WRITE:
-				i = args.pop();
-				switch (i.get_type())
+				if (write.is_Empty())
 				{
-					case LEX_NUM:
-						std::cout << i.get_value_int() << std::endl;
-						break;
-					case LEX_TRUE:
-						std::cout << "True" << std::endl;
-						break;
-					case LEX_FALSE:
-						std::cout << "False" << std::endl;
-						break;
-					case LEX_CONST_STRING:
-						std::cout << i.get_value_str() << std::endl;
-						break;
-					case LEX_BOOL:
-						std::cout << String(i.get_value_int() ? "True" : "False") << std::endl;
-						break;
-					case LEX_ID:
-						break;
-					default:
-						std::cout << "lal" << std::endl;
-						break;
+					write.push(args.pop());
+				}
+				while (!write.is_Empty())
+				{
+					i = write.pop();
+					switch (i.get_type())
+					{
+						case LEX_NUM:
+							std::cout << i.get_value_int() << std::endl;
+							break;
+						case LEX_TRUE:
+							std::cout << "True" << std::endl;
+							break;
+						case LEX_FALSE:
+							std::cout << "False" << std::endl;
+							break;
+						case LEX_CONST_STRING:
+							std::cout << i.get_value_str() << std::endl;
+							break;
+						case LEX_BOOL:
+							std::cout << String(i.get_value_int() ? "True" : "False") << std::endl;
+							break;
+						case LEX_ID:
+							break;
+						default:
+							std::cout << "lal" << std::endl;
+							break;
+					}
 				}
 				break;
 			case LEX_READ:
@@ -115,7 +128,6 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				}
 				break;
 			case LEX_PLUS:
-				//TODO also for int
 				i = args.pop();
 				j = args.pop();
 				if (i.get_type() == LEX_CONST_STRING)
