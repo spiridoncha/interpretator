@@ -1,4 +1,13 @@
 program
 {
-	int a = 4
+	int a = 0, i;
+	read(a);
+	while(a < 3)
+	{
+		read(i);
+		if (i % 2 == 0)
+			a = a + 1;
+		else
+			continue;
+	}
 }
