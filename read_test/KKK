@@ -1,14 +1,15 @@
 program
 {
-	int a=;
+	int a;
 	string b = "SAdf";
 	read(a);
 	read(b);
 	while (a < 5)
 	{
 		a = a + 1;
-		break;
+		write(b);
 		continue;
 		b = "qwert";
+		write(b);
 	}
 }

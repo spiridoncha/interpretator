@@ -576,7 +576,7 @@ void Parser::For_In_Parens()
 		place_2 = prog.get_free();
 		if (current_type_of_lex == LEX_SEMICOLON)
 		{
-			prog.put_lex(Lex(LEX_TRUE));
+			prog.put_lex(Lex(LEX_TRUE, 1));
 		}
 		else
 		{

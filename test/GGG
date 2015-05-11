@@ -1,6 +1,6 @@
 program
 {
-	int a,b=4,c=2,i;
+	int a,b=4,c=2,i=10;
 	bool u;
 	for(i=0;i<10;i=i+1)
 	{

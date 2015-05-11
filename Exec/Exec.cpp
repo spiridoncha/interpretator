@@ -84,16 +84,16 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 							std::cout << i.get_value_int() << std::endl;
 							break;
 						case LEX_TRUE:
-							std::cout << "True" << std::endl;
+							std::cout << "true" << std::endl;
 							break;
 						case LEX_FALSE:
-							std::cout << "False" << std::endl;
+							std::cout << "false" << std::endl;
 							break;
 						case LEX_CONST_STRING:
 							std::cout << i.get_value_str() << std::endl;
 							break;
 						case LEX_BOOL:
-							std::cout << String(i.get_value_int() ? "True" : "False") << std::endl;
+							std::cout << String(i.get_value_int() ? "true" : "false") << std::endl;
 							break;
 						case LEX_ID:
 							break;
