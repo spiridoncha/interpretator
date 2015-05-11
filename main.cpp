@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 	{
 		if (argc != 2)
 		{
-			throw(Arguments_Error(argc));
+			throw Arguments_Error(argc);
 		}
 		Interpretator inter(argv[1]);
 		inter.interpretation();
@@ -15,10 +15,6 @@ int main(int argc, char *argv[])
 	catch (const Except &a)
 	{
 		cout << a.what() << endl;
-	}
-	catch(const char *a)
-	{
-		cout << a << endl;
 	}
 	return 0;
 }
