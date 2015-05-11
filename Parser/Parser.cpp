@@ -5,7 +5,7 @@ void Parser::analize()
 {
 	get_lex();
 	Program();
-	//prog.out();
+	prog.out();
 	//std::cout << "yeah!!!" << std::endl;
 }
 
@@ -492,6 +492,7 @@ bool Parser::Operator(bool loop, int continue_point = 0, int break_point = 0)
 			Expression();
 			eq_type();
 			prog.put_lex(Lex(LEX_ASSIGN));
+			prog.put_lex(Lex(POLIZ_POP));
 			if (current_type_of_lex == LEX_SEMICOLON)
 			{
 				get_lex();

@@ -70,6 +70,9 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				write.push(args.pop());
 				write.push(args.pop());
 				break;
+			case POLIZ_POP:
+				i = args.pop();
+				break;
 			case LEX_WRITE:
 				if (write.is_Empty())
 				{

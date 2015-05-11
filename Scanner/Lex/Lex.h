@@ -57,6 +57,7 @@ enum type_of_lex
 	POLIZ_LABEL,
 	POLIZ_ADDRESS,
 	POLIZ_SEQ_WRITE,//52
+	POLIZ_POP
 };
 
 class Lex
