@@ -5,7 +5,7 @@ void Parser::analize()
 {
 	get_lex();
 	Program();
-	prog.out();
+	//prog.out();
 	//std::cout << "yeah!!!" << std::endl;
 }
 
