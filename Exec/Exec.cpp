@@ -146,6 +146,10 @@ void Exec::exec(Poliz &prog, Table_Ident &TID)
 				j = args.pop();
 				args.push(j.put_value(j.get_value_int() - i.get_value_int()));
 				break;	
+			case LEX_UNARYMINUS:
+				i = args.pop();
+				args.push(i.put_value(-i.get_value_int()));
+				break;
 			case LEX_TIMES:
 				i = args.pop();
 				j = args.pop();
