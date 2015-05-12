@@ -605,6 +605,7 @@ void Parser::For_In_Parens()
 		else
 		{
 			Expression();
+			prog.put_lex(Lex(POLIZ_POP));
 		}
 		prog.put_lex(Lex(POLIZ_LABEL, place_2));
 		prog.put_lex(Lex(POLIZ_GO));
