@@ -565,6 +565,7 @@ void Parser::For_In_Parens()
 		else
 		{
 			Expression();
+			prog.put_lex(Lex(POLIZ_POP));
 		}
 		if (current_type_of_lex == LEX_SEMICOLON)
 		{
