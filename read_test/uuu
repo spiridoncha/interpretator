@@ -2,7 +2,7 @@ program
 {
 	int n, i, j;
 	bool cond;
-	read(n);
+	n = 5000;
 	write(2);
 	for(i=3;i<n;i=i+2)
 	{
